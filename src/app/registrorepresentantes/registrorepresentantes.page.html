@@ -1,0 +1,50 @@
+<!-- Linea de -->
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>UNIDAD EDUCATIVA ANTONIO ÁVILA MALDONADO</ion-title>
+  </ion-toolbar>
+</ion-header>
+<!-- Segunda linea de encabezado  -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registro de Representante</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Targeta de registro -->
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="6" offset-md="3" size-lg="4" offset-lg="4"> 
+  <ion-list>
+    <div class="image-center">
+      <img src="assets/img/escudo(1).png" alt="Escudo" style="width: 100px; height: auto ;">
+    </div>
+    <ion-card-subtitle>Ingrese sus datos</ion-card-subtitle>
+    <ion-item>
+      <ion-label position="floating">Nombres</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Apellidos</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Cédula</ion-label>
+      <ion-input type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Correo</ion-label>
+      <ion-input type="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Cedula del Representado (Estudiante)</ion-label>
+      <ion-input type="number"></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="block" (click)="ngOnInit()">Registrar</ion-button>
+</ion-col>
+</ion-row>
+</ion-grid>
+</ion-content>
