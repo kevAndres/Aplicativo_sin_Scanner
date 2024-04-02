@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms'; // Asegúrate de importar ReactiveFormsModule
 
 import { IonicModule } from '@ionic/angular';
 
@@ -13,6 +14,7 @@ import { RegistrodocentesPage } from './registrodocentes.page';
     CommonModule,
     FormsModule,
     IonicModule,
+    ReactiveFormsModule,
     RegistrodocentesPageRoutingModule
   ],
   declarations: [RegistrodocentesPage]
