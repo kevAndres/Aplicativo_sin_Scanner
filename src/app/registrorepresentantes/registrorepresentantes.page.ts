@@ -1,37 +1,62 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registrorepresentantes',
   templateUrl: './registrorepresentantes.page.html',
   styleUrls: ['./registrorepresentantes.page.scss'],
 })
-export class RegistrorepresentantesPage {
-
+export class RegistrorepresentantesPage implements OnInit {
   formularioRepresentantes: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
-    // Aquí inicializamos el FormGroup utilizando el FormBuilder
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private authService: AuthService
+  ) {
     this.formularioRepresentantes = this.formBuilder.group({
-      // Definimos un FormControl para cada campo con sus validaciones
-      nombres: ['', [Validators.required, Validators.minLength(3)]],
-      apellidos: ['', [Validators.required, Validators.minLength(3)]],
-      cedula: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]], // Suponiendo cédula de 10 dígitos
-      correo: ['', [Validators.required, Validators.email]],
-      contrasena: ['', [Validators.required]]
+      nombre: ['', [Validators.required, Validators.minLength(3)]],
+      apellido: ['', [Validators.required, Validators.minLength(3)]],
+      cedula: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
     });
   }
- // Este método se llamará cuando el formulario se intente enviar
- registrarRepresentante() {
-  // Verificamos si el formulario es válido
-  if (this.formularioRepresentantes.valid) {
-    // Si el formulario es válido, podemos proceder a registrar al docente
-    console.log('Datos del formulario:', this.formularioRepresentantes.value);
-    // Aquí podrías añadir la lógica para enviar estos datos a un servidor o base de datos
-  } else {
-    // Si el formulario no es válido, podemos mostrar algún mensaje de error
-    console.error('El formulario tiene errores y no se puede registrar al docente');
+
+  ngOnInit(): void {}
+
+  registrarRepresentante() {
+    if (this.formularioRepresentantes.valid) {
+      // Construye el objeto de datos con la información del formulario
+      const datosRegistro = {
+        nombre: this.formularioRepresentantes.value.nombre,
+        apellido: this.formularioRepresentantes.value.apellido,
+        cedula: this.formularioRepresentantes.value.cedula,
+        email: this.formularioRepresentantes.value.email,
+        password: this.formularioRepresentantes.value.password,
+        // Aquí añades el rol que siempre será 'representante'
+        rol: 'representante',
+      };
+
+      // Llama al método register del servicio authService y pasa los datos
+      this.authService.registerRepresentante(datosRegistro).subscribe({
+        next: (response) => {
+          console.log('Registro exitoso', response);
+          alert('Registro Exitoso');
+          // Navega a la ruta que desees tras un registro exitoso, por ejemplo '/login'
+          this.router.navigate(['/home']);
+        },
+        error: (error) => {
+          console.error('Error en el registro', error);
+          let mensajeError = 'Ocurrió un error al intentar registrar. Por favor, intenta de nuevo.';
+          if (error.error && error.error.message) {
+            mensajeError = error.error.message; // Usa el mensaje de la respuesta
+          }
+          alert(mensajeError)
+        },
+      });
+    }
   }
-}
 }

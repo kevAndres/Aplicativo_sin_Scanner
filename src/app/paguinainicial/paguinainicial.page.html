@@ -1,0 +1,67 @@
+<ion-menu side="start" menuId="first" contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-menu-toggle auto-hide="false">
+        <ion-item routerLink="/esquela">
+          <ion-icon slot="start" name="document-text-outline"></ion-icon>
+          <ion-label>Esquelas</ion-label>
+        </ion-item>
+        <ion-item routerLink="/home">
+          <ion-icon slot="start" name="clipboard-outline"></ion-icon>
+          <ion-label>Registro de Atrasos</ion-label>
+        </ion-item>
+        <ion-item routerLink="/home">
+          <ion-icon slot="start" name="exit-outline"></ion-icon>
+          <ion-label>Cerrar Sesion</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet id="main-content"></ion-router-outlet>
+
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>UNIDAD EDUCATIVA ANTONIO ÁVILA MALDONADO</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="5">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title> ESQUELAS </ion-card-title>
+            <ion-card-subtitle>Registro de esquelas</ion-card-subtitle>
+            <ion-button expand="block" routerLink="/esquela">
+              registra aqui
+              <ion-icon slot="start" name="document-text-outline"></ion-icon>
+            </ion-button>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size-md="5">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title> ATRASOS </ion-card-title>
+            <ion-card-subtitle>Registro de estudiantes atrasados</ion-card-subtitle>
+            <ion-button expand="block" routerLink="/esquela">
+              registra aqui
+              <ion-icon slot="start" name="clipboard-outline"></ion-icon>
+            </ion-button>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -3,16 +3,40 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/user/login'; // Sustituye esto por la URL real de tu API
+  private apiUrl = 'http://localhost:3000/user/login'; // Asegúrate de que esta es la URL correcta de tu endpoint de API
+  private apiUrlregister = 'http://localhost:3000'; // Asegúrate de que esta es la URL correcta de tu endpoint de API
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  login(credentials: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials);
+  login(email: string, password: string): Observable<any> {
+    // Define el cuerpo de la solicitud con las credenciales
+    const body = { email: email, password: password };
+    // Realiza la solicitud POST con el cuerpo de la solicitud
+    return this.http.post(this.apiUrl, body);
+  }
+  registerRepresentante(data: {
+    nombre: string;
+    apellido: string;
+    cedula: string;
+    email: string;
+    password: string;
+    rol: string;
+  }): Observable<any> {
+    return this.http.post(`${this.apiUrlregister}/user/register`, data);
   }
 
-  // Aquí puedes agregar más métodos, como registro, cierre de sesión, etc.
+  registerDocente(data: {
+    nombre: string;
+    apellido: string;
+    cedula: string;
+    email: string;
+    asignatura: string;
+    password: string;
+    rol: string;
+  }): Observable<any> {
+    return this.http.post(`${this.apiUrlregister}/user/register`, data);
+  }
 }

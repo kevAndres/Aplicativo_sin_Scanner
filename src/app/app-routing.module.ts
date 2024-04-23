@@ -19,6 +19,14 @@ const routes: Routes = [
     path: 'registrorepresentantes',
     loadChildren: () => import('./registrorepresentantes/registrorepresentantes.module').then( m => m.RegistrorepresentantesPageModule)
   },
+  {
+    path: 'esquela',
+    loadChildren: () => import('./esquela/esquela.module').then( m => m.EsquelaPageModule)
+  },
+  {
+    path: 'paguinainicial',
+    loadChildren: () => import('./paguinainicial/paguinainicial.module').then( m => m.PaguinainicialPageModule)
+  },
 ];
 
 @NgModule({

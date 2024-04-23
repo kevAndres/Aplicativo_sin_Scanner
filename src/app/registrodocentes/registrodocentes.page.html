@@ -22,11 +22,11 @@
           <form [formGroup]="formularioDocente" (ngSubmit)="registrarDocente()">
             <ion-item>
               <ion-label position="floating">Nombres</ion-label>
-              <ion-input type="text" formControlName="nombres"></ion-input>
+              <ion-input type="text" formControlName="nombre"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Apellidos</ion-label>
-              <ion-input type="text" formControlName="apellidos"></ion-input>
+              <ion-input type="text" formControlName="apellido"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Cédula</ion-label>
@@ -34,7 +34,7 @@
             </ion-item>
             <ion-item>
               <ion-label position="floating">Correo</ion-label>
-              <ion-input type="email" formControlName="correo"></ion-input>
+              <ion-input type="email" formControlName="email"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Asignatura</ion-label>
@@ -49,7 +49,7 @@
             </ion-item>
             <ion-item>
               <ion-label position="floating">Contraseña</ion-label>
-              <ion-input type="password" formControlName="contrasena"></ion-input>
+              <ion-input type="password" formControlName="password"></ion-input>
             </ion-item>
             <ion-button type="submit" expand="block" [disabled]="!formularioDocente.valid">Registrar</ion-button>
           </form>

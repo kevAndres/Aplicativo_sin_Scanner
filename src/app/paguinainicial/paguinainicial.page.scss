@@ -1,0 +1,15 @@
+/* app-menu.component.scss */
+.sidebar {
+    ion-header {
+      --background: #333;
+    }
+    ion-list {
+      ion-item {
+        --background: #fff;
+        &:hover {
+          --background: #f4f4f8;
+        }
+      }
+    }
+  }
+  

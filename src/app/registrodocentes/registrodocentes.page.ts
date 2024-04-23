@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registrodocentes',
@@ -9,30 +11,56 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegistrodocentesPage {
   formularioDocente: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private authService: AuthService
+  ) {
     // Aquí inicializamos el FormGroup utilizando el FormBuilder
     this.formularioDocente = this.formBuilder.group({
       // Definimos un FormControl para cada campo con sus validaciones
-      nombres: ['', [Validators.required, Validators.minLength(3)]],
-      apellidos: ['', [Validators.required, Validators.minLength(3)]],
+      nombre: ['', [Validators.required, Validators.minLength(3)]],
+      apellido: ['', [Validators.required, Validators.minLength(3)]],
       cedula: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]], // Suponiendo cédula de 10 dígitos
-      correo: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       asignatura: ['', [Validators.required]],
       rol: ['', [Validators.required]],
-      contrasena: ['', [Validators.required]]
+      password: ['', [Validators.required]],
     });
   }
 
   // Este método se llamará cuando el formulario se intente enviar
   registrarDocente() {
-    // Verificamos si el formulario es válido
     if (this.formularioDocente.valid) {
-      // Si el formulario es válido, podemos proceder a registrar al docente
-      console.log('Datos del formulario:', this.formularioDocente.value);
-      // Aquí podrías añadir la lógica para enviar estos datos a un servidor o base de datos
-    } else {
-      // Si el formulario no es válido, podemos mostrar algún mensaje de error
-      console.error('El formulario tiene errores y no se puede registrar al docente');
+      // Construye el objeto de datos con la información del formulario
+      const datosRegistro = {
+        nombre: this.formularioDocente.value.nombre,
+        apellido: this.formularioDocente.value.apellido,
+        cedula: this.formularioDocente.value.cedula,
+        email: this.formularioDocente.value.email,
+        asignatura: this.formularioDocente.value.password,
+        rol: this.formularioDocente.value.rol,
+        password: this.formularioDocente.value.password,
+      };
+
+      // Llama al método register del servicio authService y pasa los datos
+      this.authService.registerDocente(datosRegistro).subscribe({
+        next: (response) => {
+          console.log('Registro exitoso', response);
+          alert('Resgistro Exitoso');
+          // Navega a la ruta que desees tras un registro exitoso, por ejemplo '/login'
+          this.router.navigate(['/home']);
+        },
+        error: (error) => {
+          console.error('Error en el registro', error);
+          let mensajeError =
+            'Ocurrió un error al intentar registrar. Por favor, intenta de nuevo.';
+          if (error.error && error.error.message) {
+            mensajeError = error.error.message; // Usa el mensaje de la respuesta
+          }
+          alert(mensajeError);
+        },
+      });
     }
   }
 }

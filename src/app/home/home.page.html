@@ -1,9 +1,9 @@
-<title>INICIO</title>
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>UNIDAD EDUCATIVA ANTONIO ÁVILA MALDONADO</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content class="ion-padding">
   <ion-grid>
     <ion-row>
@@ -11,28 +11,30 @@
         <ion-card>
           <ion-card-header>
               <div class="image-center">
-              <img src="assets/img/escudo(1).png" alt="Escudo" style="width: 100px; height: auto ;">
+              <img src="assets/img/escudo(1).png" alt="Escudo" style="width: 100px; height: auto;">
             </div>
             <ion-card-subtitle>Bienvenido</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
-            <ion-item>
-              <ion-label position="floating">Correo Electrónico/Usuario</ion-label>
-              <ion-input type="email"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="floating">Contraseña</ion-label>
-              <ion-input type="password"></ion-input>
-            </ion-item>
-            <ion-button expand="block" class="ion-margin-top">Iniciar Sesión</ion-button>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <ion-item>
+                <ion-label position="floating">Correo Electrónico/Usuario</ion-label>
+                <ion-input formControlName="email" type="email"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="floating">Contraseña</ion-label>
+                <ion-input formControlName="password" type="password"></ion-input>
+              </ion-item>
+              <ion-button type="submit" expand="block" class="ion-margin-top">Iniciar Sesión</ion-button>
+            </form>
           </ion-card-content>
         </ion-card>
         <ion-card-header>
           <ion-card-subtitle>
             ¿No tienes Credenciales? 
           </ion-card-subtitle>
-            <ion-button fill="clear" (click)="goToRegistroDocentes()">Regístrate aquí como Docente</ion-button>
-            <ion-button fill="clear" (click)="goToRegistroRepresentantes()">Regístrate aquí como Representante</ion-button>      
+          <ion-button fill="clear" (click)="goToRegistroDocentes()">Regístrate aquí como Docente</ion-button>
+          <ion-button fill="clear" (click)="goToRegistroRepresentantes()">Regístrate aquí como Representante</ion-button>      
         </ion-card-header>  
       </ion-col>
     </ion-row>
