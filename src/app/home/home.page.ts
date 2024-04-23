@@ -39,12 +39,8 @@ export class HomePage implements OnInit {
           },
           error: (error) => {
             console.error('Error en el login', error);
-            let mensajeError =
-              'Ocurrió un error al intentar registrar. Por favor, intenta de nuevo.';
-            if (error.error && error.error.message) {
-              mensajeError = 'Crendenciales Incorrectas'; // Usa el mensaje de la respuesta
-            }
-            alert(mensajeError);
+           
+            alert(error);
           },
         });
     }
