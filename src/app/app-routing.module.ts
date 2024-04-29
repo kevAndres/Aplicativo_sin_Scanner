@@ -27,6 +27,14 @@ const routes: Routes = [
     path: 'paguinainicial',
     loadChildren: () => import('./paguinainicial/paguinainicial.module').then( m => m.PaguinainicialPageModule)
   },
+  {
+    path: 'paguinaprincipalrepresentante',
+    loadChildren: () => import('./paguinaprincipalrepresentante/paguinaprincipalrepresentante.module').then( m => m.PaguinaprincipalrepresentantePageModule)
+  },
+  {
+    path: 'registroestudiante',
+    loadChildren: () => import('./registroestudiante/registroestudiante.module').then( m => m.RegistroestudiantePageModule)
+  },
 ];
 
 @NgModule({

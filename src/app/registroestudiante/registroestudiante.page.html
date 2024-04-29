@@ -6,7 +6,7 @@
 
 <ion-header>
   <ion-toolbar>
-    <ion-title>Registro de Docente</ion-title>
+    <ion-title>Registro de Estudiante</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,30 +19,27 @@
             <img src="assets/img/escudo(1).png" alt="Escudao" style="width: 100px; height: auto;">
           </div>
           <ion-card-subtitle>Ingrese sus datos</ion-card-subtitle>
-          <form [formGroup]="formularioDocente" (ngSubmit)="registrarDocente()">
+          <form [formGroup]="formularioEstudiante" (ngSubmit)="registrarEstudiante()">
             <ion-item>
               <ion-label position="floating">Nombres</ion-label>
-              <ion-input type="text" formControlName="nombre"></ion-input>
+              <ion-input type="text" formControlName="NombreEst"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Apellidos</ion-label>
-              <ion-input type="text" formControlName="apellido"></ion-input>
+              <ion-input type="text" formControlName="ApellidoEst"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="floating">Cédula</ion-label>
               <ion-input type="text" formControlName="cedula"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label position="floating">Correo</ion-label>
-              <ion-input type="email" formControlName="email"></ion-input>
+              <ion-label position="floating">Curso</ion-label>
+              <ion-input type="text" formControlName="curso_idCurso"></ion-input>
             </ion-item>
-            <ion-item>
-              <ion-label position="floating">Contraseña</ion-label>
-              <ion-input type="password" formControlName="password"></ion-input>
-            </ion-item>
-            <ion-button type="submit" expand="block" [disabled]="!formularioDocente.valid">Registrar</ion-button>
+
+            <ion-button type="submit" expand="block" [disabled]="!formularioEstudiante.valid">Registrar</ion-button>
           </form>
-          <ion-button expand="block" routerLink="/home">Volver al Inicio</ion-button>
+          <ion-button expand="block" routerLink="/paguinaprincipalrepresentante">Volver al Atras</ion-button>
         </ion-list>
       </ion-col>
     </ion-row>

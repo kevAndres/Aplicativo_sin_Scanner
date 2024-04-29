@@ -23,8 +23,8 @@ export class RegistrodocentesPage {
       apellido: ['', [Validators.required, Validators.minLength(3)]],
       cedula: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]], // Suponiendo cédula de 10 dígitos
       email: ['', [Validators.required, Validators.email]],
-      asignatura: ['', [Validators.required]],
-      rol: ['', [Validators.required]],
+     // asignatura: ['', [Validators.required]],
+      //rol: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
   }
@@ -38,8 +38,8 @@ export class RegistrodocentesPage {
         apellido: this.formularioDocente.value.apellido,
         cedula: this.formularioDocente.value.cedula,
         email: this.formularioDocente.value.email,
-        asignatura: this.formularioDocente.value.password,
-        rol: this.formularioDocente.value.rol,
+        //asignatura: this.formularioDocente.value.password,
+        rol: 'docente',
         password: this.formularioDocente.value.password,
       };
 
