@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registrorepresentantes',
@@ -14,7 +15,9 @@ export class RegistrorepresentantesPage implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertController: AlertController
+
   ) {
     this.formularioRepresentantes = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.minLength(3)]],
@@ -26,7 +29,26 @@ export class RegistrorepresentantesPage implements OnInit {
   }
 
   ngOnInit(): void {}
+//metodo de alerta de error
+async presentError(message: string) {
+  const alert = await this.alertController.create({
+    header: '¡UPS!',
+    message: message,
+    buttons: ['OK'],
+  });
 
+  await alert.present();
+}
+//metodo de alerta de confirmacion de registro
+async presentConfirmacion(message: string) {
+  const alert = await this.alertController.create({
+    header: 'INFO',
+    message: message,
+    buttons: ['OK'],
+  });
+
+  await alert.present();
+}
   registrarRepresentante() {
     if (this.formularioRepresentantes.valid) {
       // Construye el objeto de datos con la información del formulario
@@ -44,7 +66,7 @@ export class RegistrorepresentantesPage implements OnInit {
       this.authService.registerRepresentante(datosRegistro).subscribe({
         next: (response) => {
           console.log('Registro exitoso', response);
-          alert('Registro Exitoso');
+          this.presentConfirmacion('Registro Exitoso');
           // Navega a la ruta que desees tras un registro exitoso, por ejemplo '/login'
           this.router.navigate(['/home']);
         },
@@ -54,7 +76,7 @@ export class RegistrorepresentantesPage implements OnInit {
           if (error.error && error.error.message) {
             mensajeError = error.error.message; // Usa el mensaje de la respuesta
           }
-          alert(mensajeError)
+          this.presentError(mensajeError)
         },
       });
     }

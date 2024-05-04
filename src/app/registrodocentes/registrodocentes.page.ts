@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registrodocentes',
@@ -14,7 +15,8 @@ export class RegistrodocentesPage {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertController: AlertController
   ) {
     // Aquí inicializamos el FormGroup utilizando el FormBuilder
     this.formularioDocente = this.formBuilder.group({
@@ -28,7 +30,26 @@ export class RegistrodocentesPage {
       password: ['', [Validators.required]],
     });
   }
+//metodo de alerta de error
+  async presentError(message: string) {
+    const alert = await this.alertController.create({
+      header: '¡UPS!',
+      message: message,
+      buttons: ['OK'],
+    });
 
+    await alert.present();
+  }
+//metodo de alerta de confirmacion de registro
+  async presentConfirmacion(message: string) {
+    const alert = await this.alertController.create({
+      header: 'INFO',
+      message: message,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
+  }
   // Este método se llamará cuando el formulario se intente enviar
   registrarDocente() {
     if (this.formularioDocente.valid) {
@@ -47,7 +68,7 @@ export class RegistrodocentesPage {
       this.authService.registerDocente(datosRegistro).subscribe({
         next: (response) => {
           console.log('Registro exitoso', response);
-          alert('Resgistro Exitoso');
+          this.presentConfirmacion('Resgistro Exitoso');
           // Navega a la ruta que desees tras un registro exitoso, por ejemplo '/login'
           this.router.navigate(['/home']);
         },
@@ -58,7 +79,7 @@ export class RegistrodocentesPage {
           if (error.error && error.error.message) {
             mensajeError = error.error.message; // Usa el mensaje de la respuesta
           }
-          alert(mensajeError);
+          this.presentError(mensajeError);
         },
       });
     }

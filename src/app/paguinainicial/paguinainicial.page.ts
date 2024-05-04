@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import { EstudiantesService } from '../services/getestudiantes/estudiantes.service';
 
 @Component({
   selector: 'app-paguinainicial',
@@ -12,9 +16,50 @@ export class PaguinainicialPage implements OnInit {
     { title: 'Contacto', url: '/contact', icon: 'call' },
     // ... más páginas
   ];
-  constructor() { }
+  username: string = '';
+  asignaturasdocente: any[] = [];
 
-  ngOnInit() {
+
+
+  constructor(
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private EstudiantesService: EstudiantesService
+
+  ) {}
+
+  ngOnInit() {}
+  logout() {
+    this.EstudiantesService.clearUserData();
+    this.EstudiantesService.clearUserData();
+  };
+  ionViewDidEnter() {
+    this.UserName(); 
+    this.ChargeAsignacionAignaturas();
+  }
+  ionViewWillEnter(){
+    this.UserName(); 
+    this.ChargeAsignacionAignaturas();
+
+
+  }
+  ChargeAsignacionAignaturas(){
+    this.EstudiantesService.getAsignaturasDocente().subscribe(
+      data => {
+        this.asignaturasdocente = data;
+      },
+      Error => {
+        console.error('Error al cargar las asignaciones  de asignaturas del docente', Error)
+      }
+    )
+  }
+  UserName(){
+    try {
+      this.username = this.EstudiantesService.getUsername();
+    } catch (error) {
+      console.error(error);
+    }
   }
 
 }

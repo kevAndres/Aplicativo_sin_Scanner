@@ -35,6 +35,10 @@ const routes: Routes = [
     path: 'registroestudiante',
     loadChildren: () => import('./registroestudiante/registroestudiante.module').then( m => m.RegistroestudiantePageModule)
   },
+  {
+    path: 'registroasignatura',
+    loadChildren: () => import('./registroasignatura/registroasignatura.module').then( m => m.RegistroasignaturaPageModule)
+  },
 ];
 
 @NgModule({

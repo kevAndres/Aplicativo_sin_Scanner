@@ -6,7 +6,7 @@ import { jwtDecode } from 'jwt-decode';
 import { AlertController } from '@ionic/angular';
 
 interface JwtPayload {
-  rol?: string;
+  nombre?: string;
   idRol?: string;
   // ... cualquier otra propiedad que esperes en tu token
 }
@@ -18,16 +18,31 @@ interface JwtPayload {
 export class HomePage implements OnInit {
   loginForm: FormGroup;
 
-  ngOnInit(): void {}
+  ngOnInit() {
+
+  }
+  
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertController: AlertController
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
+  }
+
+  // Añade esta función para presentar alertas
+  async presentAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: '¡UPS!',
+      message: message,
+      buttons: ['OK'],
+    });
+
+    await alert.present();
   }
   onSubmit() {
     if (this.loginForm.valid) {
@@ -37,7 +52,7 @@ export class HomePage implements OnInit {
           next: (response) => {
             if (response.token) {
               localStorage.setItem('token', response.token); // Guarda el token y la información del usuario como sea necesario
-              //console.log('Token recibido:', response.token);
+              console.log('Token recibido:', response.token);
               const decodedToken = jwtDecode<JwtPayload>(response.token);
               const idRolPrefix = decodedToken.idRol?.substring(0, 3); // Obtén las primeras tres letras
               //console.log('Token decodificado:', idRolPrefix);
@@ -65,11 +80,11 @@ export class HomePage implements OnInit {
                 }
               } else {
                 console.error('El token no contiene la propiedad esperada.');
-                alert('El token no contiene la información necesaria.');
+                this.presentAlert('El token no contiene la información necesaria.');
               }
             } else {
               console.error('No se recibio token en la respuesta');
-              alert('No se recibio token en la respuesta');
+              this.presentAlert('No se recibio token en la respuesta');
             }
           },
           error: (error) => {
@@ -78,7 +93,7 @@ export class HomePage implements OnInit {
               error.error && error.error.message
                 ? error.error.message
                 : 'Ocurrió un error al intentar registrar. Por favor, intenta de nuevo.';
-            alert(mensajeError);
+                this.presentAlert(mensajeError);
 
           },
         });
