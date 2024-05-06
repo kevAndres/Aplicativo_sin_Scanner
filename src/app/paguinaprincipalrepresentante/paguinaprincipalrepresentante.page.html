@@ -5,17 +5,21 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ion-list>
-      <ion-menu-toggle auto-hide="false">
-        <ion-item routerLink="/registroestudiante">
-          <ion-icon slot="start" name="person-add-outline"></ion-icon>
-          <ion-label>Registro de Estudiantes</ion-label>
-        </ion-item>
-        <ion-item routerLink="/home" (click)="logout()"  >
-          <ion-icon slot="start" name="exit-outline"></ion-icon>
-          <ion-label>Cerrar Sesion</ion-label>
-        </ion-item>
-      </ion-menu-toggle>
+    <ion-list class="menu-content">
+      <div class="menu-items-top">
+        <ion-menu-toggle auto-hide="false">
+
+          <ion-item routerLink="/registroestudiante">
+            <ion-icon slot="start" name="book-outline"></ion-icon>
+            <ion-label>Registro de Estudiantes</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </div>
+
+      <ion-item class="menu-items-bottom" routerLink="/home" (ngSubmit)="logout()">
+        <ion-icon slot="start" name="exit-outline"></ion-icon>
+        <ion-label>Cerrar Sesion</ion-label>
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>
@@ -40,15 +44,20 @@
 <ion-content class="ion-padding">
   <ion-grid>
     <ion-row>
+      
       <ion-col size-md="4" *ngFor="let estudiante of representados">
         <ion-card>
           <ion-card-header>
-            <ion-card-title>{{ estudiante.NombreEst }} {{ estudiante.ApellidoEst
-              }}</ion-card-title>
-            <ion-card-subtitle>Cédula: {{ estudiante.cedula }}</ion-card-subtitle>
-            <ion-card-subtitle>
-              Curso: {{ estudiante.curso_idCurso }}
-            </ion-card-subtitle>
+            <ion-row>
+            <ion-col size="auto">
+              <ion-icon name="person-outline" class="icon-xl"></ion-icon>
+            </ion-col>
+            <ion-col>
+                <ion-card-title>{{ estudiante.NombreEst }} {{ estudiante.ApellidoEst }}</ion-card-title>
+                <ion-card-subtitle>Cédula: {{ estudiante.cedula }}</ion-card-subtitle>
+                <ion-card-subtitle> Curso: {{ estudiante.curso_idCurso }} </ion-card-subtitle>
+            </ion-col>
+          </ion-row>
             <ion-row>
               <ion-button expand="block" routerLink="/paguina para ver todas las esquelas del estudiante">
                 VER ESQUELAS
@@ -60,6 +69,7 @@
           </ion-card-header>
         </ion-card>
       </ion-col>
+      
     </ion-row>
   </ion-grid>
 </ion-content>

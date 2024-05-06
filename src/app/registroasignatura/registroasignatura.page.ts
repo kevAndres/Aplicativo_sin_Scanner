@@ -95,7 +95,7 @@ if(this.formularioAsignatura.valid){
   this.AuthService.registerAsignatura(this.formularioAsignatura.value).subscribe({
     next:(Response) =>{
       console.log(Response.message);
-      this.presentConfirmacion(Response.message);
+      //this.presentConfirmacion(Response.message);
       this.router.navigate(['/paguinainicial']);
     },
     error:(Error) =>{
@@ -111,6 +111,7 @@ if(this.formularioAsignatura.valid){
 
 }
   }
+
   ChargeAsignacionAignaturas(){
     this.EstudiantesService.getAsignaturasDocente().subscribe(
       data => {
@@ -128,4 +129,6 @@ if(this.formularioAsignatura.valid){
       console.error(error);
     }
   }
+
+  
 }

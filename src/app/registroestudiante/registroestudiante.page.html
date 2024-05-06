@@ -42,11 +42,9 @@
               <ion-input type="text" formControlName="cedula"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label>Seleccionar Curso</ion-label>
-              <ion-select formControlName="curso_idCurso" >
-                <ion-select-option *ngFor="let curso of cursos" [value]="curso.idCurso">
-                  {{ curso.idCurso }}
-                </ion-select-option>
+              
+              <ion-select formControlName="curso_idCurso" aria-label="Cursos" interface="popover" placeholder="Seleciona el Curso">
+                <ion-select-option *ngFor="let curso of cursos" [value]="curso.idCurso">     {{ curso.idCurso }}             </ion-select-option>
               </ion-select>
             </ion-item>
 

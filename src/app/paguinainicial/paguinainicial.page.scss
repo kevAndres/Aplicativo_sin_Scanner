@@ -1,5 +1,5 @@
 /* app-menu.component.scss */
-.sidebar {
+/*.sidebar {
     ion-header {
       --background: #333;
     }
@@ -11,5 +11,33 @@
         }
       }
     }
+  }*/
+  //Estilo de los iconos de las targetas de Asignaturas
+  .icon-xl {
+    font-size: 35px;
+  }
+  //estilo para menu desenfoque 
+  ion-menu {
+    backdrop-filter: blur(10px); /* Aplica un desenfoque al fondo */
+  }
+  
+  ion-menu::part(backdrop) {
+    backdrop-filter: blur(10px); /* Desenfoque para el backdrop */
+
+  }
+  
+  .menu-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+  }
+  
+  .menu-items-top {
+    flex: 1;
+  }
+  
+  .menu-items-bottom {
+    margin-bottom: 16px; /* Ajusta según sea necesario */
   }
   
