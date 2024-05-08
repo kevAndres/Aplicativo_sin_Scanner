@@ -44,9 +44,9 @@
       <ion-label position="floating">Contraseña</ion-label>
       <ion-input type="password" formControlName="password"></ion-input>
     </ion-item>
-    <ion-button type="submit" expand="block" [disabled]="!formularioRepresentantes.valid">Registrar</ion-button>
+    <ion-button type="submit" expand="block" [disabled]="!formularioRepresentantes.valid" class="custom-buttonregister"> <ion-icon name="add-outline" ></ion-icon>Registrar</ion-button>
   </form>
-  <ion-button expand="block" routerLink="/home">Volver al Inicio</ion-button>
+  <ion-button expand="block" routerLink="/home" class="custom-buttonback"> <ion-icon name="arrow-back-outline" ></ion-icon>Volver al Inicio</ion-button>
   </ion-list>
 
 

@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { EstudiantesService } from '../services/getestudiantes/estudiantes.service';
 import { AlertController, IonRouterOutlet } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registroasignatura',
@@ -14,7 +15,6 @@ export class RegistroasignaturaPage implements OnInit {
   asignaturas: any[] = [];
   cursos: any[] = [];
   asignaturasdocente: any[] = [];
-
   selectedAsignatura?: string;
   username: string = '';
   formularioAsignatura: FormGroup;
@@ -24,7 +24,8 @@ export class RegistroasignaturaPage implements OnInit {
     private formBuilder: FormBuilder,
     private alertController: AlertController,
     private AuthService : AuthService,
-    private router: Router
+    private router: Router,
+    private menu: MenuController
 
   ) {
     this.formularioAsignatura = this.formBuilder.group({
@@ -59,14 +60,18 @@ export class RegistroasignaturaPage implements OnInit {
 
   
   ionViewDidEnter() {
+    this.AuthService.AutentificatorLogin();
     this.UserName();
     this.loadAsignaturas();
     this.loadCursos();
   }
   ionViewWillEnter() {
+    this.AuthService.AutentificatorLogin();
     this.UserName();
     this.loadAsignaturas();
     this.loadCursos();
+    this.menu.enable(false, 'first');
+
   
   }
   loadAsignaturas() {

@@ -3,7 +3,12 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { EstudiantesService } from '../services/getestudiantes/estudiantes.service';
+import { MenuController } from '@ionic/angular';
 
+interface Docente {
+  asignatura_idasignatura: string;
+  curso_idCurso: string;
+}
 @Component({
   selector: 'app-paguinainicial',
   templateUrl: './paguinainicial.page.html',
@@ -18,43 +23,48 @@ export class PaguinainicialPage implements OnInit {
   ];
   username: string = '';
   asignaturasdocente: any[] = [];
-
-
+  AigCurso: Docente[] = [];
 
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private EstudiantesService: EstudiantesService
-
+    private EstudiantesService: EstudiantesService,
+    private menu: MenuController
   ) {}
 
   ngOnInit() {}
   logout() {
     this.EstudiantesService.clearUserData();
-    this.EstudiantesService.clearUserData();
-  };
+    this.authService.limpiarrepresentados();
+  }
   ionViewDidEnter() {
-    this.UserName(); 
+    this.UserName();
     this.ChargeAsignacionAignaturas();
-  }
-  ionViewWillEnter(){
-    this.UserName(); 
-    this.ChargeAsignacionAignaturas();
-
+    this.authService.AutentificatorLogin();
 
   }
-  ChargeAsignacionAignaturas(){
+  ionViewWillEnter() {
+    this.UserName();
+    this.ChargeAsignacionAignaturas();
+    this.menu.enable(true, 'first');
+    this.authService.AutentificatorLogin();
+
+  }
+  ChargeAsignacionAignaturas() {
     this.EstudiantesService.getAsignaturasDocente().subscribe(
-      data => {
+      (data) => {
         this.asignaturasdocente = data;
       },
-      Error => {
-        console.error('Error al cargar las asignaciones  de asignaturas del docente', Error)
+      (Error) => {
+        console.error(
+          'Error al cargar las asignaciones  de asignaturas del docente',
+          Error
+        );
       }
-    )
+    );
   }
-  UserName(){
+  UserName() {
     try {
       this.username = this.EstudiantesService.getUsername();
     } catch (error) {
@@ -62,4 +72,10 @@ export class PaguinainicialPage implements OnInit {
     }
   }
 
+  GetDataAsignaturaCurso(docente: Docente) {
+    localStorage.setItem('asignatura', docente.asignatura_idasignatura);
+    localStorage.setItem('curso', docente.curso_idCurso);
+    console.log(docente.asignatura_idasignatura);
+    console.log(docente.curso_idCurso);
+  }
 }

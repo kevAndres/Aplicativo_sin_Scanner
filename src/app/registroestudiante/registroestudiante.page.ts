@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AlertController, IonRouterOutlet } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { EstudiantesService } from '../services/getestudiantes/estudiantes.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registroestudiante',
@@ -28,19 +29,18 @@ export class RegistroestudiantePage implements OnInit {
     private router: Router,
     private alertController: AlertController,
     private EstudiantesService: EstudiantesService,
-    private routerOutlet: IonRouterOutlet // Necesario para Ionic
+    private routerOutlet: IonRouterOutlet,
+    private menu: MenuController
   ) {
     this.formularioEstudiante = this.formBuilder.group({
       NombreEst: ['', [Validators.required, Validators.minLength(3)]],
       ApellidoEst: ['', [Validators.required, Validators.minLength(3)]],
       cedula: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      curso_idCurso: ['', [Validators.required]]
+      curso_idCurso: ['', [Validators.required]],
     });
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   async presentError(message: string) {
     const alert = await this.alertController.create({
@@ -67,13 +67,16 @@ export class RegistroestudiantePage implements OnInit {
     await alert.present();
   }
   ionViewDidEnter() {
+    this.authService.AutentificatorLogin();
     this.UserName();
     this.loadCursos();
-
   }
   ionViewWillEnter() {
+    this.authService.AutentificatorLogin();
     this.UserName();
     this.loadCursos();
+    this.menu.enable(false, 'first');
+    this.authService.AutentificatorLogin();
   }
   loadCursos() {
     this.EstudiantesService.getCursos().subscribe({

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { EstudiantesService } from '../services/getestudiantes/estudiantes.service';
 import { AuthService } from '../services/auth.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-paguinaprincipalrepresentante',
@@ -20,7 +21,7 @@ export class PaguinaprincipalrepresentantePage implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private authService: AuthService,
-
+    private menu: MenuController,
     private EstudiantesService: EstudiantesService
   ) {}
 
@@ -29,10 +30,13 @@ export class PaguinaprincipalrepresentantePage implements OnInit, OnDestroy {
   }
 
   ionViewDidEnter() {
+    this.authService.AutentificatorLogin();
     this.ChargeEstudents(); 
   }
   ionViewWillEnter(){
+    this.authService.AutentificatorLogin();
     this.ChargeEstudents(); 
+    this.menu.enable(true, 'first');
 
   }
 

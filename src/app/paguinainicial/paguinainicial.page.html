@@ -20,14 +20,16 @@
         </ion-menu-toggle>
       </div>
 
-      <ion-item class="menu-items-bottom" routerLink="/home" (ngSubmit)="logout()">
+      <ion-item
+        class="menu-items-bottom"
+        routerLink="/home"
+        (click)="logout()">
         <ion-icon slot="start" name="exit-outline"></ion-icon>
         <ion-label>Cerrar Sesion</ion-label>
       </ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>
-
 
 <ion-router-outlet id="main-content"></ion-router-outlet>
 
@@ -38,11 +40,12 @@
     </ion-buttons>
     <ion-buttons>
       <ion-title>UNIDAD EDUCATIVA ANTONIO ÁVILA MALDONADO </ion-title>
-      <ion-button slot="end" shape="round" name="person-circle-outline"><ion-icon name="person-circle-outline">
+      <ion-button slot="end" shape="round"
+        name="person-circle-outline"><ion-icon name="person-circle-outline">
         </ion-icon> {{ username
         }}</ion-button>
     </ion-buttons>
-    <ion-title > Docente</ion-title>
+    <ion-title> Docente</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -51,21 +54,31 @@
     <ion-row>
       <ion-col size-md="4" *ngFor="let docente of asignaturasdocente">
         <ion-card>
-          <ion-card-header >
+          <ion-card-header>
             <ion-row>
               <ion-col size="auto">
                 <ion-icon name="book-outline" class="icon-xl"></ion-icon>
               </ion-col>
               <ion-col>
-                <ion-card-title>{{ docente.asignatura_idasignatura }} {{ docente.ApellidoEst }}</ion-card-title>
-                <ion-card-subtitle>Curso: {{ docente.curso_idCurso }}</ion-card-subtitle>
+                <ion-card-title>{{ docente.asignatura_idasignatura }} {{
+                  docente.ApellidoEst
+                  }}</ion-card-title>
+                <ion-card-subtitle>Curso: {{ docente.curso_idCurso
+                  }}</ion-card-subtitle>
               </ion-col>
             </ion-row>
             <ion-row>
-              <ion-button expand="block" routerLink="/paguina para ver todas las esquelas del estudiante">
-                <ion-icon slot="start" name="document-text-outline"></ion-icon>
-                REGISTRAR ESQUELAS
-              </ion-button>
+              <ion-col>
+                <ion-button expand="block" routerLink="/esquela" (click)="GetDataAsignaturaCurso(docente)" class="custom-buttonregister">
+                  <ion-icon slot="start"  name="document-text-outline" ></ion-icon>
+                  REGISTRAR ESQUELAS
+                </ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button expand="block" routerLink="/paguina para ver todas las esquelas del estudiante" (click)="GetDataAsignaturaCurso(docente)" class="custom-buttonregister">
+                  <ion-icon slot="start" name="document-text-outline"></ion-icon> INFO ESQUELAS
+                </ion-button>
+              </ion-col>
             </ion-row>
           </ion-card-header>
         </ion-card>
@@ -74,9 +87,12 @@
   </ion-grid>
 </ion-content>
 
-
-<ion-fab slot="fixed" vertical="bottom" horizontal="end" routerLink="/registroasignatura">
-  <ion-fab-button >
+<ion-fab
+  slot="fixed"
+  vertical="bottom"
+  horizontal="end"
+  routerLink="/registroasignatura">
+  <ion-fab-button>
     <ion-icon name="add"></ion-icon>
   </ion-fab-button>
 </ion-fab>

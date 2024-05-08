@@ -10,8 +10,9 @@
       <ion-col size-md="6" offset-md="3" size-lg="4" offset-lg="4">
         <ion-card>
           <ion-card-header>
-              <div class="image-center">
-              <img src="assets/img/escudo(1).png" alt="Escudo" style="width: 100px; height: auto;">
+            <div class="image-center">
+              <img src="assets/img/escudo(1).png" alt="Escudo"
+                style="width: 100px; height: auto;">
             </div>
             <ion-card-subtitle>Bienvenido</ion-card-subtitle>
           </ion-card-header>
@@ -23,19 +24,26 @@
               </ion-item>
               <ion-item>
                 <ion-label position="floating">Contraseña</ion-label>
-                <ion-input formControlName="password" type="password"></ion-input>
+                <ion-input formControlName="password"
+                  type="password"></ion-input>
               </ion-item>
-              <ion-button type="submit" expand="block" class="ion-margin-top">Iniciar Sesión</ion-button>
+              <ion-button type="submit" expand="block" class="ion-margin-top"
+                class="custom-buttonregister">Iniciar Sesión</ion-button>
             </form>
           </ion-card-content>
         </ion-card>
         <ion-card-header>
           <ion-card-subtitle>
-            ¿No tienes Credenciales? 
+
+            ¿No tienes Credenciales?
           </ion-card-subtitle>
-          <ion-button fill="clear" (click)="goToRegistroDocentes()">Regístrate aquí como Docente</ion-button>
-          <ion-button fill="clear" (click)="goToRegistroRepresentantes()">Regístrate aquí como Representante</ion-button>      
-        </ion-card-header>  
+          <ion-button fill="clear" (click)="goToRegistroDocentes()"
+            class="custom-buttonregister">Regístrate aquí como
+            Docente</ion-button>
+          <ion-button fill="clear" (click)="goToRegistroRepresentantes()"
+            class="custom-buttonregister">Regístrate aquí como
+            Representante</ion-button>
+        </ion-card-header>
       </ion-col>
     </ion-row>
   </ion-grid>

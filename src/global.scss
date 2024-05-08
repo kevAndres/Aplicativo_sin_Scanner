@@ -24,3 +24,22 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+//estilo para centrar el logo de la institucion
+.image-center {
+    display: flex;
+    justify-content: center;
+  }
+//estilos de los botones de registrar y volver atras
+.custom-buttonback {
+    --background: rgb(216, 107, 74);
+    //--color: white;
+    --border-radius: 20px;
+    --padding: 10px 20px;
+  }
+  .custom-buttonregister {
+    --background-color: blue;
+    //--color: white;
+    --border-radius: 20px;
+    --padding: 10px 20px;
+  }

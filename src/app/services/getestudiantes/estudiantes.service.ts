@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { jwtDecode } from 'jwt-decode';
+import { APIURL } from '../../../Shares/UrlApi'; // Importa la constante API_URL desde el archivo api-config
 
 interface JwtPayload {
   idRol?: string;
@@ -13,10 +14,10 @@ interface JwtPayload {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EstudiantesService {
-  private apiUrl = 'http://localhost:3000'; // URL base de tu API
+  apiUrl: string = APIURL; // Variable para almacenar la URL de la API
   private userSubject = new BehaviorSubject<string | null>(null);
   public user$ = this.userSubject.asObservable();
 
@@ -48,21 +49,41 @@ export class EstudiantesService {
   getRepresentados(): Observable<any> {
     const decodedToken = this.decodeToken();
     if (decodedToken && decodedToken.idRol) {
-      return this.http.get<any>(`${this.apiUrl}/estudiante/representante/${decodedToken.idRol}`).pipe(
-        catchError(error => throwError(() => new Error('Error al cargar los representados: ' + error.message)))
-      );
+      return this.http
+        .get<any>(
+          `${this.apiUrl}/estudiante/representante/${decodedToken.idRol}`
+        )
+        .pipe(
+          catchError((error) =>
+            throwError(
+              () =>
+                new Error('Error al cargar los representados: ' + error.message)
+            )
+          )
+        );
     } else {
-      return throwError(() => new Error('No token available or token is invalid'));
+      return throwError(
+        () => new Error('No token available or token is invalid')
+      );
     }
   }
   getAsignaturasDocente(): Observable<any[]> {
     const decodedToken = this.decodeToken();
     if (decodedToken && decodedToken.idRol) {
-      return this.http.get<any>(`${this.apiUrl}/docenteMateria/docente/${decodedToken.idRol}`).pipe(
-        catchError(error => throwError(() => new Error('Error al cargar los representados: ' + error.message)))
-      );
+      return this.http
+        .get<any>(`${this.apiUrl}/docenteMateria/docente/${decodedToken.idRol}`)
+        .pipe(
+          catchError((error) =>
+            throwError(
+              () =>
+                new Error('Error al cargar los representados: ' + error.message)
+            )
+          )
+        );
     } else {
-      return throwError(() => new Error('No token available or token is invalid'));
+      return throwError(
+        () => new Error('No token available or token is invalid')
+      );
     }
   }
   getAsignaturas(): Observable<any> {
@@ -71,13 +92,18 @@ export class EstudiantesService {
   getCursos(): Observable<any> {
     return this.http.get(`${this.apiUrl}/curso/all`);
   }
-  
+  getEstudiantesCurso(): Observable<any[]> {
+    return this.http.get<any>(
+      `${this.apiUrl}/estudiante/curso/${localStorage.getItem('curso')}`
+    );
+  }
   clearUserData(): void {
     // Resetear los BehaviorSubjects o cualquier otra variable de estado
     this.userSubject.next(null);
     localStorage.removeItem('token'); // Remueve el token del localStorage
-
-    // Aquí también podrías limpiar cualquier otro estado o almacenamiento local
+    localStorage.removeItem('curso'); // Remueve el curso del localStorage
+    localStorage.removeItem('asignatura'); // Remueve la asignatura del localStorage
+    localStorage.removeItem('Estudiante'); // Remueve el idEstudiante del localStorage
     console.log('Todos los datos de usuario han sido borrados.');
   }
 }

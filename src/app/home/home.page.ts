@@ -46,57 +46,41 @@ export class HomePage implements OnInit {
   }
   onSubmit() {
     if (this.loginForm.valid) {
-      this.authService
-        .login(this.loginForm.value.email, this.loginForm.value.password)
-        .subscribe({
-          next: (response) => {
-            if (response.token) {
-              localStorage.setItem('token', response.token); // Guarda el token y la información del usuario como sea necesario
-              console.log('Token recibido:', response.token);
-              const decodedToken = jwtDecode<JwtPayload>(response.token);
-              const idRolPrefix = decodedToken.idRol?.substring(0, 3); // Obtén las primeras tres letras
-              //console.log('Token decodificado:', idRolPrefix);
-              if (decodedToken && decodedToken.idRol) {
-                switch (idRolPrefix) {
-                  case 'REP':
-                    this.router.navigate(['/paguinaprincipalrepresentante']);
-                    console.log('Login :', response.message);
-                    //alert('Login Existoso');
-                    
-                    break;
-                  case 'LIC':
-                    this.router.navigate(['/paguinainicial']);
-                    console.log('Login :', response.message);
-                    //alert('Login Existoso');
-                    break;
-                  case 'INS':
-                    this.router.navigate(['/ruta-para-inspector']);
-                    console.log('Login :', response.message);
-                    //alert('Login Existoso');
-                    break;
-                  default:
-                    this.router.navigate(['/home']); // Ruta por defecto o manejo de error
-                    break;
-                }
-              } else {
-                console.error('El token no contiene la propiedad esperada.');
-                this.presentAlert('El token no contiene la información necesaria.');
-              }
-            } else {
-              console.error('No se recibio token en la respuesta');
-              this.presentAlert('No se recibio token en la respuesta');
-            }
-          },
-          error: (error) => {
-            console.error('Error en el login', error);
-            const mensajeError =
-              error.error && error.error.message
-                ? error.error.message
-                : 'Ocurrió un error al intentar registrar. Por favor, intenta de nuevo.';
-                this.presentAlert(mensajeError);
+      const { email, password } = this.loginForm.value;
+      this.authService.login(email, password).subscribe({
+        next: (success) => {
+          if (success) {
+            console.log('Inicio de sesión exitoso');
+            this.redirectBasedOnRole();
+          } else {
+            console.log('Inicio de sesión fallido');
+            // Manejar el inicio de sesión fallido según tu lógica
+          }
+        },
+        error: (error) => {
+          console.error('Error en el inicio de sesión', error);
+          // Manejar el error según tu lógica
+        }
+      });
+    }
+  }
 
-          },
-        });
+  redirectBasedOnRole() {
+    // Aquí puedes mantener la lógica para redirigir al usuario según su rol
+    const idRolPrefix = this.authService.getRoleIdPrefix();
+    switch (idRolPrefix) {
+      case 'REP':
+        this.router.navigate(['/paguinaprincipalrepresentante']);
+        break;
+      case 'LIC':
+        this.router.navigate(['/paguinainicial']);
+        break;
+      case 'INS':
+        this.router.navigate(['/ruta-para-inspector']);
+        break;
+      default:
+        this.router.navigate(['/home']); // Ruta por defecto o manejo de error
+        break;
     }
   }
 
