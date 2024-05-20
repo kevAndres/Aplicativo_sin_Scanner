@@ -27,6 +27,8 @@ export class EsquelaPage implements OnInit {
   Motivos: string[] = MotivoEsquelas; // Inicializa el arreglo de opciones con los valores del archivo opciones.ts
   MotivoSeleccionado: string = ''; // Variable para almacenar la opción seleccionada del combo box
   AigCurso: Estudiante[] = [];
+  showCalendar: boolean = false;
+
 
   constructor(
     private EstudiantesService: EstudiantesService,
@@ -40,6 +42,8 @@ export class EsquelaPage implements OnInit {
       EstudianteCurso: ['', [Validators.required]],
       Motivo: ['', [Validators.required]],
       Descripcion: ['', [Validators.required, Validators.minLength(3)]],
+      //fechaCita: [''] // Agrega esto si quieres validar la fecha
+
     });
   }
   async presentError(message: string) {
@@ -152,4 +156,8 @@ export class EsquelaPage implements OnInit {
     };
     reader.readAsDataURL(file); // Convierte la imagen a base64
   }
+  toggleCalendar(event: any) {
+    this.showCalendar = event.detail.checked;
+  }
+  
 }

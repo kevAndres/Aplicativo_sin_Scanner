@@ -1,0 +1,39 @@
+.icon-xl {
+  font-size: 50px;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto; /* Ajusta según el tamaño del contenedor que desees */
+}
+.user-card {
+    padding: 20px; // Ajusta el relleno según sea necesario
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .icon-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .centered-icon {
+    font-size: 48px; // Ajusta el tamaño del icono según sea necesario
+  }
+  
+  .ion-padding {
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --padding-top: 20px;
+    --padding-bottom: 20px;
+  }
+
+  .qr-image {
+    width: 100%; // Ajusta el ancho al 100% del contenedor
+    max-width: 400px; // Establece un ancho máximo para la imagen
+    height: auto; // Mantén la proporción de aspecto
+    display: block;
+    margin: 0 auto; // Centra la imagen
+  }

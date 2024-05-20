@@ -53,9 +53,10 @@
             </ion-item>
 
             <ion-item>
-              <ion-button (click)="selectFile()">
+              <ion-label position="start">Evidencia</ion-label>
+
+              <ion-button slot="end" (click)="selectFile()" >
                 <ion-icon name="cloud-upload-outline"></ion-icon>
-                Evidencia +
               </ion-button>
               <input type="file" #fileInput accept="image/jpeg, image/png" hidden (change)="uploadFile($event)">
               
@@ -63,12 +64,24 @@
               <p *ngIf="uploadMessage">{{ uploadMessage }}</p>
               
               <!-- Vista previa de la imagen cargada -->
-              <img *ngIf="base64Image" [src]="base64Image" alt="Image preview" style="width: 100px; height: auto;">
+              <img *ngIf="base64Image" [src]="base64Image" alt="Evidencia" style="width: 100px; height: auto;">
               
             </ion-item>
+            
+            <ion-item>
+              <ion-label position="start">Agendar cita</ion-label>
+
+              <ion-checkbox justify="end" (ionChange)="toggleCalendar($event)"></ion-checkbox>
+            </ion-item>
+
+            <ion-item *ngIf="showCalendar">
+              <ion-datetime presentation="date-time" [preferWheel]="true" class="datetime-spacer"></ion-datetime>
+
+            </ion-item>
+
             <ion-button type="submit" expand="block" [disabled]="!formularioEsquela.valid" class="custom-buttonregister"><ion-icon name="add-outline"></ion-icon>Registrar Esquela</ion-button>
           </form>
-          <ion-button expand="block" routerLink="/paguinainicial" class="custom-buttonback"><ion-icon name="arrow-back-outline"></ion-icon>Volver al Atras</ion-button>
+          <ion-button expand="block" routerLink="/paguinainicial" class="custom-buttonback"><ion-icon name="arrow-back-outline"></ion-icon>Volver  Atras</ion-button>
         </ion-list>
       </ion-col>
     </ion-row>

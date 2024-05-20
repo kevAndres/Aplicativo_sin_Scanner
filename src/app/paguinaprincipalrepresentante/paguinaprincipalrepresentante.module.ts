@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { PaguinaprincipalrepresentantePageRoutingModule } from './paguinaprincipalrepresentante-routing.module';
 
 import { PaguinaprincipalrepresentantePage } from './paguinaprincipalrepresentante.page';
-
+import { VistaUsuarioComponent } from 'src/Component/VistaUsuario/vista-usuario/vista-usuario.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -15,6 +15,6 @@ import { PaguinaprincipalrepresentantePage } from './paguinaprincipalrepresentan
     IonicModule,
     PaguinaprincipalrepresentantePageRoutingModule
   ],
-  declarations: [PaguinaprincipalrepresentantePage]
+  declarations: [PaguinaprincipalrepresentantePage, VistaUsuarioComponent]
 })
 export class PaguinaprincipalrepresentantePageModule {}

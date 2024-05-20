@@ -97,6 +97,11 @@ export class EstudiantesService {
       `${this.apiUrl}/estudiante/curso/${localStorage.getItem('curso')}`
     );
   }
+  getEsquelasEstudiante(): Observable<any[]> {
+    return this.http.get<any>(
+      `${this.apiUrl}/estudiante/curso/${localStorage.getItem('Estudiante')}`
+    );
+  }
   clearUserData(): void {
     // Resetear los BehaviorSubjects o cualquier otra variable de estado
     this.userSubject.next(null);

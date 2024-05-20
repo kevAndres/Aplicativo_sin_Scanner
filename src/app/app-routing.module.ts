@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { ScannerQRComponent } from 'src/Component/ScannerQR/scanner-qr/scanner-qr.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,18 @@ const routes: Routes = [
   {
     path: 'registroasignatura',
     loadChildren: () => import('./registroasignatura/registroasignatura.module').then( m => m.RegistroasignaturaPageModule)
+  },
+  {
+    path: 'vista-esquela-representante',
+    loadChildren: () => import('./vista-esquela-representante/vista-esquela-representante.module').then( m => m.VistaEsquelaRepresentantePageModule)
+  },
+  {
+    path: 'atrasos',
+    loadChildren: () => import('./atrasos/atrasos.module').then( m => m.AtrasosPageModule)
+  },
+  {
+    path: 'scanner-qr',
+    component: ScannerQRComponent
   },
 ];
 

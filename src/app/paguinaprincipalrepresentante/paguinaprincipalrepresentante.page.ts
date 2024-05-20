@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { EstudiantesService } from '../services/getestudiantes/estudiantes.service';
 import { AuthService } from '../services/auth.service';
 import { MenuController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { VistaUsuarioComponent } from 'src/Component/VistaUsuario/vista-usuario/vista-usuario.component';
 
 @Component({
   selector: 'app-paguinaprincipalrepresentante',
@@ -22,7 +24,8 @@ export class PaguinaprincipalrepresentantePage implements OnInit, OnDestroy {
     private router: Router,
     private authService: AuthService,
     private menu: MenuController,
-    private EstudiantesService: EstudiantesService
+    private EstudiantesService: EstudiantesService,
+    private modalController: ModalController
   ) {}
 
   ngOnInit() {
@@ -69,8 +72,28 @@ export class PaguinaprincipalrepresentantePage implements OnInit, OnDestroy {
    // this.subscriptions.unsubscribe();
   }
 
+  GetDataIdEstudiante(estudiante: any) {
+    localStorage.setItem('IdEstCurForEsquelas', estudiante.idEstudiantes);
+    localStorage.setItem('NombreEstudiante', estudiante.NombreEst);
+    localStorage.setItem('ApellidoEstudiante', estudiante.ApellidoEst);
+
+
+    console.log(estudiante.idEstudiantes);
+    console.log(estudiante.NombreEst);
+    console.log(estudiante.ApellidoEst);
+
+
+  }
   logout() {
     this.authService.limpiarrepresentados();
     this.EstudiantesService.clearUserData();
+  }
+
+
+  async showUserInfo() {
+    const modal = await this.modalController.create({
+      component: VistaUsuarioComponent
+    });
+    return await modal.present();
   }
 }
