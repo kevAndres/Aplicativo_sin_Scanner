@@ -9,8 +9,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint",
-    "serve": "serve -s www"
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
