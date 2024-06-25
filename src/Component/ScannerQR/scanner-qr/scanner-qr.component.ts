@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';  // Importa el enrutador de Angular
+import { ModalController } from '@ionic/angular';  // Importa ModalController
 import jsQR from 'jsqr';
 
 @Component({
@@ -12,7 +12,7 @@ export class ScannerQRComponent implements AfterViewInit {
   @ViewChild('canvasElement') canvasElement!: ElementRef<HTMLCanvasElement>;
   qrCodeData: string | null = null;
 
-  constructor(private router: Router) {}  // Inyecta el enrutador en el constructor
+  constructor(private modalController: ModalController) {}  // Inyecta ModalController
 
   ngAfterViewInit() {
     this.startVideo();
@@ -68,8 +68,11 @@ export class ScannerQRComponent implements AfterViewInit {
           const tracks = (video.srcObject as MediaStream).getTracks();
           tracks.forEach(track => track.stop());
           
-          // Navegar a otra página o realizar una acción específica
-          this.router.navigate(['/pagina-anterior']);  // Cambia '/pagina-anterior' por la ruta deseada
+          // Cerrar el modal
+          this.modalController.dismiss({
+            'dismissed': true,
+            'qrCodeData': this.qrCodeData  // Puedes pasar los datos del QR si es necesario
+          });
         }
       }
 
