@@ -90,9 +90,10 @@ export class AuthService {
     // Verifica si el token de sesión está presente en el almacenamiento local
     return !!localStorage.getItem('token');
   }
+  
+  // Si el usuario no está logueado, redirigirlo a la página de inicio de sesión
   public AutentificatorLogin(): void {
     if (!this.isLoggedIn()) {
-      // Si el usuario no está logueado, redirigirlo a la página de inicio de sesión
       this.router.navigate(['/home']);
     }
   }
