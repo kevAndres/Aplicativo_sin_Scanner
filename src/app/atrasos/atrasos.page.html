@@ -44,6 +44,7 @@
                 <ion-select-option *ngFor="let curso of cursos" [value]="curso.idCurso">     {{ curso.idCurso }}             </ion-select-option>
               </ion-select>
             </ion-item>
+            <ion-button routerLink="/scanner-qr"> Scanear QR</ion-button>
 
             <ion-button type="submit" expand="block" [disabled]="!formularioatrasos.valid" class="custom-buttonregister"> <ion-icon name="add-outline" ></ion-icon>Registrar</ion-button>
           </form>
@@ -52,7 +53,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-button routerLink="/scanner-qr"> Scanear QR</ion-button>
 
 </ion-content>
 
