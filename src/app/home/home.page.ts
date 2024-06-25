@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { jwtDecode } from 'jwt-decode';
 import { AlertController } from '@ionic/angular';
-
+import { LoadingController } from '@ionic/angular';
 interface JwtPayload {
   nombre?: string;
   idRol?: string;
@@ -24,6 +24,7 @@ export class HomePage implements OnInit {
   
   constructor(
     private router: Router,
+    private loadingController: LoadingController,
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private alertController: AlertController
@@ -44,9 +45,20 @@ export class HomePage implements OnInit {
 
     await alert.present();
   }
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Iniciando sesión...',
+      translucent: true,
+    });
+    await loading.present();
+  }
+  async dismissLoading() {
+    await this.loadingController.dismiss();
+  }
   onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
+      this.presentLoading();
       this.authService.login(email, password).subscribe({
         next: (success) => {
           if (success) {
@@ -60,6 +72,9 @@ export class HomePage implements OnInit {
         error: (error) => {
           console.error('Error en el inicio de sesión', error);
           // Manejar el error según tu lógica
+        },
+        complete: () => {
+          this.dismissLoading(); // Descarta el loading cuando la solicitud completa (ya sea éxito o error)
         }
       });
     }
