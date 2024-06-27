@@ -20,6 +20,8 @@ interface EsquelaData {
   Motivo: string;
   Descripcion: string;
   Evidencia?: string | ArrayBuffer | null; // Hacer opcional el campo de evidencia
+  cita?: string | ArrayBuffer | null; // Hacer opcional el campo de evidencia
+
 }
 @Injectable({
   providedIn: 'root',
@@ -166,9 +168,10 @@ export class AuthService {
     return this.http.post(`${this.apiUrlregister}/docente/asignacionMateria`, body);
   }
 
-  registerEsquela(data: EsquelaData): Observable<any> {
+  registerEsquela_API(data: EsquelaData): Observable<any> {
     const token = localStorage.getItem('token');
     const estudiantes_idEstudiantes = localStorage.getItem('Estudiante');
+    const asignación_docente_materia_idAsignacion = localStorage.getItem('MateriaDocente');
 
     if (!token) {
       // Mejor manejo del error con Observable para integrarse en la cadena de observables
@@ -178,10 +181,11 @@ export class AuthService {
     const body = {
       ...data,
       token, 
-      estudiantes_idEstudiantes
+      estudiantes_idEstudiantes,
+      asignación_docente_materia_idAsignacion
     };
 
-    return this.http.post(`${this.apiUrlregister}/esquela/register`, body)
+    return this.http.post(`${this.apiUrlregister}/esquela/registrar`, body)
       .pipe(
         catchError((error) => {
           // Manejo de errores HTTP

@@ -76,7 +76,7 @@ export class EstudiantesService {
           catchError((error) =>
             throwError(
               () =>
-                new Error('Error al cargar los representados: ' + error.message)
+                new Error('Error al cargar las asignaturas: ' + error.message)
             )
           )
         );
