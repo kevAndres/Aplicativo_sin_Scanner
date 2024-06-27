@@ -1,10 +1,16 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { EstudiantesService } from '../services/getestudiantes/estudiantes.service';
 import { MenuController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MotivoEsquelas } from '../../Shares/MotivoEsquelas';
 import { AuthService } from '../services/auth.service';
-import { AlertController, IonRouterOutlet } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 interface Estudiante {
@@ -28,22 +34,21 @@ export class EsquelaPage implements OnInit {
   MotivoSeleccionado: string = ''; // Variable para almacenar la opción seleccionada del combo box
   AigCurso: Estudiante[] = [];
   showCalendar: boolean = false;
-
-
+  minDate: string = new Date().toISOString();
+  citaValue: String = '';
   constructor(
     private EstudiantesService: EstudiantesService,
     private menu: MenuController,
     private formBuilder: FormBuilder,
     private alertController: AlertController,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
   ) {
     this.formularioEsquela = this.formBuilder.group({
       EstudianteCurso: ['', [Validators.required]],
       Motivo: ['', [Validators.required]],
       Descripcion: ['', [Validators.required, Validators.minLength(3)]],
-      //fechaCita: [''] // Agrega esto si quieres validar la fecha
-
     });
   }
   async presentError(message: string) {
@@ -83,15 +88,24 @@ export class EsquelaPage implements OnInit {
     this.UserName();
     this.menu.enable(false, 'first');
   }
+
+  toggleCalendar(event: any) {
+    this.showCalendar = event.detail.checked;
+    this.cdr.detectChanges(); // Forzar la detección de cambios
+  }
   RegisterEsquela() {
     if (this.formularioEsquela.valid) {
-      const formData = {
-        Motivo: this.formularioEsquela.get('Motivo')!.value, // Aserción no nula
-        Descripcion: this.formularioEsquela.get('Descripcion')!.value, // Aserción no nula
+      const formData: any = {
+        Motivo: this.formularioEsquela.get('Motivo')!.value,
+        Descripcion: this.formularioEsquela.get('Descripcion')!.value,
         Evidencia: this.base64Image,
       };
+      if (this.showCalendar) {
+        // Verifica si el calendario está habilitado
+        formData.cita = this.citaValue; // Asegúrate de obtener el valor correcto de cita
+      }
 
-      this.authService.registerEsquela(formData).subscribe({
+      this.authService.registerEsquela_API(formData).subscribe({
         next: (response) => {
           console.log('Esquela registrada con éxito', response);
           this.presentConfirmacion(response);
@@ -156,8 +170,4 @@ export class EsquelaPage implements OnInit {
     };
     reader.readAsDataURL(file); // Convierte la imagen a base64
   }
-  toggleCalendar(event: any) {
-    this.showCalendar = event.detail.checked;
-  }
-  
 }

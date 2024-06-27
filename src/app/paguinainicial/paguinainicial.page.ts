@@ -8,6 +8,7 @@ import { MenuController } from '@ionic/angular';
 interface Docente {
   asignatura_idasignatura: string;
   curso_idCurso: string;
+  IdAsignacion:string;
 }
 @Component({
   selector: 'app-paguinainicial',
@@ -75,6 +76,8 @@ export class PaguinainicialPage implements OnInit {
   GetDataAsignaturaCurso(docente: Docente) {
     localStorage.setItem('asignatura', docente.asignatura_idasignatura);
     localStorage.setItem('curso', docente.curso_idCurso);
+    localStorage.setItem('MateriaDocente', docente.IdAsignacion);
+
     console.log(docente.asignatura_idasignatura);
     console.log(docente.curso_idCurso);
   }
