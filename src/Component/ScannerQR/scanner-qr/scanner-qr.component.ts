@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';  // Importa el enrutador de Angular
+import { Router } from '@angular/router';  
 import jsQR from 'jsqr';
 
 @Component({
@@ -12,7 +12,7 @@ export class ScannerQRComponent implements AfterViewInit {
   @ViewChild('canvasElement') canvasElement!: ElementRef<HTMLCanvasElement>;
   qrCodeData: string | null = null;
 
-  constructor(private router: Router) {}  // Inyecta el enrutador en el constructor
+  constructor(private router: Router) {}  
 
   ngAfterViewInit() {
     this.startVideo();
@@ -31,7 +31,7 @@ export class ScannerQRComponent implements AfterViewInit {
 
       if (video) {
         video.srcObject = stream;
-        video.setAttribute('playsinline', ''); // Necessary for iOS
+        video.setAttribute('playsinline', ''); 
 
         await new Promise<void>((resolve, reject) => {
           video.onloadedmetadata = () => {
@@ -69,7 +69,7 @@ export class ScannerQRComponent implements AfterViewInit {
           tracks.forEach(track => track.stop());
           
           // Navegar a otra página o realizar una acción específica
-          this.router.navigate(['/atrasos']);  // Cambia '/pagina-anterior' por la ruta deseada
+          this.router.navigate(['/atrasos']);  
         }
       }
 

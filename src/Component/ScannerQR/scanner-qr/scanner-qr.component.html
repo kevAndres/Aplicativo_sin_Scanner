@@ -1,7 +1,6 @@
 <ion-content>
-  <div>
-    <video #videoElement style="width: 100%; height: auto;"></video>
+  <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+    <video #videoElement style="width: 300px; height: 300px; border: 2px solid black;"></video>
     <canvas #canvasElement style="display: none;"></canvas>
-    <p *ngIf="qrCodeData">QR Code data: {{ qrCodeData }}</p>
   </div>
 </ion-content>
