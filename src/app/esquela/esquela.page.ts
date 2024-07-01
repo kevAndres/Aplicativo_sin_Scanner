@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  ChangeDetectorRef,
-} from '@angular/core';
+import {  Component,  OnInit,  ViewChild,  ElementRef,  ChangeDetectorRef,} from '@angular/core';
 import { EstudiantesService } from '../services/getestudiantes/estudiantes.service';
 import { MenuController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -35,7 +29,7 @@ export class EsquelaPage implements OnInit {
   AigCurso: Estudiante[] = [];
   showCalendar: boolean = false;
   minDate: string = new Date().toISOString();
-  citaValue: String = '';
+  citaValue: string = '';
   constructor(
     private EstudiantesService: EstudiantesService,
     private menu: MenuController,
@@ -49,6 +43,8 @@ export class EsquelaPage implements OnInit {
       EstudianteCurso: ['', [Validators.required]],
       Motivo: ['', [Validators.required]],
       Descripcion: ['', [Validators.required, Validators.minLength(3)]],
+      cita: [''] // Agrega el control de la fecha aquí
+
     });
   }
   async presentError(message: string) {
@@ -91,20 +87,53 @@ export class EsquelaPage implements OnInit {
 
   toggleCalendar(event: any) {
     this.showCalendar = event.detail.checked;
+    if (this.showCalendar) {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const currentDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+      
+      // Establecer el valor en el control de formulario
+      this.formularioEsquela.get('cita')!.setValue(currentDate);
+      console.log('Valor de cita establecido a la fecha y hora actuales en América/Guayaquil:', currentDate);
+    }
     this.cdr.detectChanges(); // Forzar la detección de cambios
   }
+  
+  
+  
+  
+
   RegisterEsquela() {
     if (this.formularioEsquela.valid) {
+      let citaFormateada = 'El docente emitente, no solicita cita';
+  
+      if (this.showCalendar) {
+        const citaValue = this.formularioEsquela.get('cita')!.value;
+        if (citaValue) {
+          const date = new Date(citaValue);
+          const day = String(date.getDate()).padStart(2, '0');
+          const month = String(date.getMonth() + 1).padStart(2, '0'); // Enero es 0
+          const year = date.getFullYear();
+          const hours = String(date.getHours()).padStart(2, '0');
+          const minutes = String(date.getMinutes()).padStart(2, '0');
+          citaFormateada = `${day}/${month}/${year} ${hours}:${minutes}`;
+        }
+      }
+  
       const formData: any = {
         Motivo: this.formularioEsquela.get('Motivo')!.value,
         Descripcion: this.formularioEsquela.get('Descripcion')!.value,
         Evidencia: this.base64Image,
+        cita: citaFormateada
       };
-      if (this.showCalendar) {
-        // Verifica si el calendario está habilitado
-        formData.cita = this.citaValue; // Asegúrate de obtener el valor correcto de cita
-      }
-
+      
+      console.log('Datos del formulario:', formData); // Para depurar
+  
       this.authService.registerEsquela_API(formData).subscribe({
         next: (response) => {
           console.log('Esquela registrada con éxito', response);
@@ -120,6 +149,9 @@ export class EsquelaPage implements OnInit {
       console.error('Datos no válidos');
     }
   }
+  
+
+  
 
   loadEstudiantesCurso() {
     this.EstudiantesService.getEstudiantesCurso().subscribe({

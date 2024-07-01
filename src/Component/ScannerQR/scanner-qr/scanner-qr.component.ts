@@ -1,18 +1,26 @@
-import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { Router } from '@angular/router';  // Importa el enrutador de Angular
+import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';  
 import jsQR from 'jsqr';
+import { EstudiantesService } from '../../../app/services/getestudiantes/estudiantes.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-scanner-qr',
   templateUrl: './scanner-qr.component.html',
   styleUrls: ['./scanner-qr.component.scss'],
 })
-export class ScannerQRComponent implements AfterViewInit {
+export class ScannerQRComponent implements AfterViewInit, OnDestroy {
   @ViewChild('videoElement') videoElement!: ElementRef<HTMLVideoElement>;
   @ViewChild('canvasElement') canvasElement!: ElementRef<HTMLCanvasElement>;
   qrCodeData: string | null = null;
+  videoStream: MediaStream | null = null;  // Variable para almacenar el stream de video
+  estudiantes_idEstudiantes: string | null = null;     // Variable para almacenar el id del estudiante
 
-  constructor(private router: Router) {}  // Inyecta el enrutador en el constructor
+  constructor(
+    private router: Router,
+    private estudiantesService: EstudiantesService,
+    private alertController: AlertController
+  ) {}
 
   ngAfterViewInit() {
     this.startVideo();
@@ -26,12 +34,12 @@ export class ScannerQRComponent implements AfterViewInit {
         },
       };
 
-      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      this.videoStream = await navigator.mediaDevices.getUserMedia(constraints);
       const video = this.videoElement.nativeElement;
 
       if (video) {
-        video.srcObject = stream;
-        video.setAttribute('playsinline', ''); // Necessary for iOS
+        video.srcObject = this.videoStream;
+        video.setAttribute('playsinline', ''); 
 
         await new Promise<void>((resolve, reject) => {
           video.onloadedmetadata = () => {
@@ -65,11 +73,7 @@ export class ScannerQRComponent implements AfterViewInit {
 
         if (code) {
           this.qrCodeData = code.data;
-          const tracks = (video.srcObject as MediaStream).getTracks();
-          tracks.forEach(track => track.stop());
-          
-          // Navegar a otra página o realizar una acción específica
-          this.router.navigate(['/atrasos']);  // Cambia '/pagina-anterior' por la ruta deseada
+          this.getEstudianteData(code.data);  // Obtener datos del estudiante
         }
       }
 
@@ -79,5 +83,85 @@ export class ScannerQRComponent implements AfterViewInit {
     };
 
     tick();
+  }
+
+  async getEstudianteData(codigo: string) {
+    try {
+      const estudiante = await this.estudiantesService.getEstudianteData(codigo).toPromise();
+      this.estudiantes_idEstudiantes = estudiante.idEstudiantes; // Almacena el id del estudiante
+      this.presentAlert(estudiante.NombreEst, estudiante.ApellidoEst, estudiante.cedula);
+    } catch (error) {
+      console.error('Error al obtener los datos del estudiante', error);
+      alert('Error al obtener los datos del estudiante: ' + error);
+    }
+  }
+
+  async presentAlert(nombre: string, apellido: string, cedula: string) {
+    const alert = await this.alertController.create({
+      header: 'Registrar Atraso',
+      message: `Registrar Atraso al estudiante ${nombre} ${apellido} con cédula ${cedula}.`,
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            if (this.estudiantes_idEstudiantes) {
+              this.registrarAtraso(this.estudiantes_idEstudiantes);
+            } else {
+              console.error('No se encontró el id del estudiante');
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  registrarAtraso(estudiantes_idEstudiantes: string) {
+    this.estudiantesService.registrarAtraso(estudiantes_idEstudiantes).subscribe({
+      next: (response) => {
+        console.log('Atraso registrado exitosamente', response);
+        this.presentConfirmacion('Atraso registrado exitosamente');
+        this.qrCodeData = null;  // Reiniciar el valor del código QR para permitir un nuevo escaneo
+        this.scanQRCode();  // Reiniciar el escaneo después del registro
+      },
+      error: (error) => {
+        console.error('Error al registrar el atraso', error);
+        this.presentError('Error al registrar el atraso');
+        this.qrCodeData = null;  // Reiniciar el valor del código QR para permitir un nuevo escaneo
+        this.scanQRCode();  // Reiniciar el escaneo después del registro
+      }
+    });
+  }
+
+  async presentConfirmacion(message: string) {
+    const alert = await this.alertController.create({
+      header: 'INFO',
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async presentError(message: string) {
+    const alert = await this.alertController.create({
+      header: '¡UPS!',
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  ngOnDestroy() {
+    this.stopVideo();  // Detener el video cuando el componente se destruya
+  }
+
+  stopVideo() {
+    if (this.videoStream) {
+      this.videoStream.getTracks().forEach(track => track.stop());
+      this.videoStream = null;
+    }
   }
 }

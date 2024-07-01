@@ -73,10 +73,11 @@
 
               <ion-checkbox justify="end" (ionChange)="toggleCalendar($event)"></ion-checkbox>
             </ion-item>
-
             <ion-item *ngIf="showCalendar">
-              <ion-datetime   [(ngModel)]="citaValue" presentation="date-time" [min]="minDate" [preferWheel]="true" class="datetime-spacer"></ion-datetime>
+              <ion-datetime formControlName="cita" presentation="date-time" class="datetime-spacer"></ion-datetime>
             </ion-item>
+            
+            
             
 
             <ion-button type="submit" expand="block" [disabled]="!formularioEsquela.valid" class="custom-buttonregister"><ion-icon name="add-outline"></ion-icon>Registrar Esquela</ion-button>

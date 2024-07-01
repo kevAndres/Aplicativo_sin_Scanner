@@ -102,6 +102,26 @@ export class EstudiantesService {
       `${this.apiUrl}/estudiante/curso/${localStorage.getItem('Estudiante')}`
     );
   }
+
+  getEstudianteData(codigo: string): Observable<any> {
+    return this.http.get(`${APIURL}/estudiante/${codigo}`).pipe(
+      catchError((error) => {
+        console.error('Error al obtener los datos del estudiante', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  registrarAtraso(estudiantes_idEstudiantes: string): Observable<any> {
+    const token = this.getToken();
+    const body = { estudiantes_idEstudiantes, token };
+    return this.http.post(`${this.apiUrl}/atraso/register`, body).pipe(
+      catchError((error) => {
+        console.error('Error al registrar el atraso', error);
+        return throwError(error);
+      })
+    );
+  }
   clearUserData(): void {
     // Resetear los BehaviorSubjects o cualquier otra variable de estado
     this.userSubject.next(null);
