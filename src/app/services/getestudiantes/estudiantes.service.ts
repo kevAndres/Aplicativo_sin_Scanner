@@ -111,7 +111,7 @@ export class EstudiantesService {
       })
     );
   }
-
+//Metodo para registrar atraso desde el scaneo QR
   registrarAtraso(estudiantes_idEstudiantes: string): Observable<any> {
     const token = this.getToken();
     const body = { estudiantes_idEstudiantes, token };
@@ -122,6 +122,31 @@ export class EstudiantesService {
       })
     );
   }
+//Metodo para registrar atraso desde la busqueda por la cedula
+  registrarAtrasoFromCedula(estudiantes_idEstudiantes: string): Observable<any> {
+    const token = this.getToken();
+    const body = { estudiantes_idEstudiantes, token };
+    return this.http.post(`${this.apiUrl}/atraso/register`, body).pipe(
+      catchError((error) => {
+        console.error('Error al registrar el atraso', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  getIDESTfromCedula(cedula: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl}/estudiante/cedula/${cedula}`
+    ).pipe(
+      catchError(error => {
+        console.error('Error en la solicitud al servicio:', error);
+        return throwError(error);
+      })
+    );
+  }
+  
+  
+
   clearUserData(): void {
     // Resetear los BehaviorSubjects o cualquier otra variable de estado
     this.userSubject.next(null);
