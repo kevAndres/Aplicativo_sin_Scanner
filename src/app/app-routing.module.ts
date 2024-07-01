@@ -51,7 +51,19 @@ const routes: Routes = [
   {
     path: 'scanner-qr',
     component: ScannerQRComponent
+  },  {
+    path: 'tabs',
+    loadChildren: () => import('./inspector/tabs/tabs.module').then( m => m.TabsPageModule)
   },
+  {
+    path: 'all-atrasos',
+    loadChildren: () => import('./inspector/all-atrasos/all-atrasos.module').then( m => m.AllAtrasosPageModule)
+  },
+  {
+    path: 'configuracion',
+    loadChildren: () => import('./inspector/configuracion/configuracion.module').then( m => m.ConfiguracionPageModule)
+  },
+
 ];
 
 @NgModule({

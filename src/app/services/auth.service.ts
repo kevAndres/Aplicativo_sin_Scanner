@@ -213,4 +213,6 @@ export class AuthService {
     // Aquí también podrías limpiar cualquier otro estado o almacenamiento local
     console.log('Todos los datos de usuario han sido borrados.');
   }
+
+ 
 }

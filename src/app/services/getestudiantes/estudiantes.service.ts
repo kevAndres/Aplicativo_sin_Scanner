@@ -111,4 +111,24 @@ export class EstudiantesService {
     localStorage.removeItem('Estudiante'); // Remueve el idEstudiante del localStorage
     console.log('Todos los datos de usuario han sido borrados.');
   }
+
+  getAtrasosByInspector(): Observable<any[]> {
+    const decodedToken = this.decodeToken();
+    if (decodedToken && decodedToken.idRol) {
+      return this.http
+        .get<any>(`${this.apiUrl}/atraso/all/${decodedToken.idRol}`)
+        .pipe(
+          catchError((error) =>
+            throwError(
+              () =>
+                new Error('Error al cargar las asignaturas: ' + error.message)
+            )
+          )
+        );
+    } else {
+      return throwError(
+        () => new Error('No token available or token is invalid')
+      );
+    }
+  }
 }
