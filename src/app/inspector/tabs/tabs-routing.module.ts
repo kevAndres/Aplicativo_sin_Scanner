@@ -13,8 +13,8 @@ const routes: Routes = [
         loadChildren: () => import('../all-atrasos/all-atrasos.module').then(m => m.AllAtrasosPageModule)
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../configuracion/configuracion.module').then(m => m.ConfiguracionPageModule)
+        path: 'atrasos',
+        loadChildren: () => import('../../atrasos/atrasos.module').then(m => m.AtrasosPageModule)
       },
       
       {
