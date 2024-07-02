@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -13,8 +12,11 @@ import { EstudiantesService } from '../../services/getestudiantes/estudiantes.se
 })
 export class AllAtrasosPage implements OnInit {
   username: string = '';
-  atrasosByInspector: any []=[];
-  constructor(private authService: AuthService,private EstudiantesService: EstudiantesService,) { }
+  atrasosByInspector: any[] = [];
+  constructor(
+    private authService: AuthService,
+    private EstudiantesService: EstudiantesService
+  ) {}
 
   ngOnInit() {}
   logout() {

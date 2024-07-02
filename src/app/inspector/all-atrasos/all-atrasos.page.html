@@ -20,12 +20,9 @@
     <ion-list>
       <ion-item *ngFor="let atrasos of atrasosByInspector">
         <ion-label>
-          <h1>FECHA :  {{ atrasos.registroFecha }} </h1>
-          <p>ESTUDIANTE : {{ atrasos.estudiante.NombreEst }} {{ atrasos.estudiante.ApellidoEst }}</p>
-          
-          <p>CURSO : {{ atrasos.estudiante.curso_idCurso }} </p>
-          
+          <ion-card-title><strong>FECHA :</strong> {{ atrasos.registroFecha }}<br> </ion-card-title>
+          <ion-card-subtitle><strong>ESTUDIANTE :</strong> {{ atrasos.estudiante.NombreEst }} {{ atrasos.estudiante.ApellidoEst }}<br></ion-card-subtitle>
+          <ion-card-subtitle><strong>CURSO :</strong> {{ atrasos.estudiante.curso_idCurso }} <br></ion-card-subtitle>
         </ion-label>
       </ion-item>
     </ion-list>
-
