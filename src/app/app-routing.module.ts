@@ -5,7 +5,7 @@ import { ScannerQRComponent } from 'src/Component/ScannerQR/scanner-qr/scanner-q
 const routes: Routes = [
   {
     path: 'home',
-        loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
     path: '',
@@ -14,56 +14,56 @@ const routes: Routes = [
   },
   {
     path: 'registrodocentes',
-    loadChildren: () => import('./registrodocentes/registrodocentes.module').then( m => m.RegistrodocentesPageModule)
+    loadChildren: () => import('./registrodocentes/registrodocentes.module').then(m => m.RegistrodocentesPageModule)
   },
   {
     path: 'registrorepresentantes',
-    loadChildren: () => import('./registrorepresentantes/registrorepresentantes.module').then( m => m.RegistrorepresentantesPageModule)
+    loadChildren: () => import('./registrorepresentantes/registrorepresentantes.module').then(m => m.RegistrorepresentantesPageModule)
   },
   {
     path: 'esquela',
-    loadChildren: () => import('./esquela/esquela.module').then( m => m.EsquelaPageModule)
+    loadChildren: () => import('./esquela/esquela.module').then(m => m.EsquelaPageModule)
   },
   {
     path: 'paguinainicial',
-    loadChildren: () => import('./paguinainicial/paguinainicial.module').then( m => m.PaguinainicialPageModule)
+    loadChildren: () => import('./paguinainicial/paguinainicial.module').then(m => m.PaguinainicialPageModule)
   },
   {
     path: 'paguinaprincipalrepresentante',
-    loadChildren: () => import('./paguinaprincipalrepresentante/paguinaprincipalrepresentante.module').then( m => m.PaguinaprincipalrepresentantePageModule)
+    loadChildren: () => import('./paguinaprincipalrepresentante/paguinaprincipalrepresentante.module').then(m => m.PaguinaprincipalrepresentantePageModule)
   },
   {
     path: 'registroestudiante',
-    loadChildren: () => import('./registroestudiante/registroestudiante.module').then( m => m.RegistroestudiantePageModule)
+    loadChildren: () => import('./registroestudiante/registroestudiante.module').then(m => m.RegistroestudiantePageModule)
   },
   {
     path: 'registroasignatura',
-    loadChildren: () => import('./registroasignatura/registroasignatura.module').then( m => m.RegistroasignaturaPageModule)
+    loadChildren: () => import('./registroasignatura/registroasignatura.module').then(m => m.RegistroasignaturaPageModule)
   },
   {
     path: 'vista-esquela-representante',
-    loadChildren: () => import('./vista-esquela-representante/vista-esquela-representante.module').then( m => m.VistaEsquelaRepresentantePageModule)
+    loadChildren: () => import('./vista-esquela-representante/vista-esquela-representante.module').then(m => m.VistaEsquelaRepresentantePageModule)
   },
   {
     path: 'atrasos',
-    loadChildren: () => import('./atrasos/atrasos.module').then( m => m.AtrasosPageModule)
+    loadChildren: () => import('./atrasos/atrasos.module').then(m => m.AtrasosPageModule)
   },
   {
     path: 'scanner-qr',
     component: ScannerQRComponent
-  },  {
+  },
+  {
     path: 'tabs',
-    loadChildren: () => import('./inspector/tabs/tabs.module').then( m => m.TabsPageModule)
+    loadChildren: () => import('./inspector/tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
     path: 'all-atrasos',
-    loadChildren: () => import('./inspector/all-atrasos/all-atrasos.module').then( m => m.AllAtrasosPageModule)
+    loadChildren: () => import('./inspector/all-atrasos/all-atrasos.module').then(m => m.AllAtrasosPageModule)
   },
   {
     path: 'configuracion',
-    loadChildren: () => import('./inspector/configuracion/configuracion.module').then( m => m.ConfiguracionPageModule)
+    loadChildren: () => import('./inspector/configuracion/configuracion.module').then(m => m.ConfiguracionPageModule)
   },
-
 ];
 
 @NgModule({
