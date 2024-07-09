@@ -14,11 +14,11 @@ const routes: Routes = [
   },
   {
     path: 'registrodocentes',
-    loadChildren: () => import('./registrodocentes/registrodocentes.module').then(m => m.RegistrodocentesPageModule)
+    loadChildren: () => import('./Docente/registrodocentes/registrodocentes.module').then(m => m.RegistrodocentesPageModule)
   },
   {
     path: 'registrorepresentantes',
-    loadChildren: () => import('./registrorepresentantes/registrorepresentantes.module').then(m => m.RegistrorepresentantesPageModule)
+    loadChildren: () => import('./Representantes/registrorepresentantes/registrorepresentantes.module').then(m => m.RegistrorepresentantesPageModule)
   },
   {
     path: 'esquela',
