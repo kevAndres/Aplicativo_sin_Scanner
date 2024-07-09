@@ -1,10 +1,10 @@
 import { Component, OnDestroy, Injectable, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { AlertController, IonRouterOutlet } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { EstudiantesService } from '../services/getestudiantes/estudiantes.service';
+import { EstudiantesService } from '../../services/getestudiantes/estudiantes.service';
 import { MenuController } from '@ionic/angular';
 
 @Component({
