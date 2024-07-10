@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePage } from './home.page';
-import { RegistrodocentesPage } from '../registrodocentes/registrodocentes.page';
-import { RegistrorepresentantesPage } from '../registrorepresentantes/registrorepresentantes.page';
+import { RegistrodocentesPage } from '../Docente/registrodocentes/registrodocentes.page';
+import { RegistrorepresentantesPage } from '../Representantes/registrorepresentantes/registrorepresentantes.page';
 
 const routes: Routes = [
   {
