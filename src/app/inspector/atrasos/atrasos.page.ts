@@ -5,9 +5,9 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
-import { EstudiantesService } from '../services/getestudiantes/estudiantes.service';
+import { EstudiantesService } from '../../services/getestudiantes/estudiantes.service';
 import { MenuController, AlertController } from '@ionic/angular';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 interface Docente {

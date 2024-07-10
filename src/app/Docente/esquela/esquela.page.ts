@@ -1,9 +1,9 @@
 import {  Component,  OnInit,  ViewChild,  ElementRef,  ChangeDetectorRef,} from '@angular/core';
-import { EstudiantesService } from '../services/getestudiantes/estudiantes.service';
+import { EstudiantesService } from '../../services/getestudiantes/estudiantes.service';
 import { MenuController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MotivoEsquelas } from '../../Shares/MotivoEsquelas';
-import { AuthService } from '../services/auth.service';
+import { MotivoEsquelas } from '../../../Shares/MotivoEsquelas';
+import { AuthService } from '../../services/auth.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 

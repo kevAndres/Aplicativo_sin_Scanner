@@ -1,8 +1,8 @@
 import { Component, OnDestroy, Injectable, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { EstudiantesService } from '../services/getestudiantes/estudiantes.service';
-import { AuthService } from '../services/auth.service';
+import { EstudiantesService } from '../../services/getestudiantes/estudiantes.service';
+import { AuthService } from '../../services/auth.service';
 import { MenuController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { VistaUsuarioComponent } from 'src/Component/VistaUsuario/vista-usuario/vista-usuario.component';

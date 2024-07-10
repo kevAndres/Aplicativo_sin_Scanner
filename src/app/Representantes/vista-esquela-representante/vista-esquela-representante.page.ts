@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { EstudiantesService } from '../services/getestudiantes/estudiantes.service';
+import { EstudiantesService } from '../../services/getestudiantes/estudiantes.service';
 import { MenuController } from '@ionic/angular';
-import { AuthService } from '../services/auth.service';
-import { EsquelasService } from '../services/getEsquelas/esquelas.service';
+import { AuthService } from '../../services/auth.service';
+import { EsquelasService } from '../../services/getEsquelas/esquelas.service';
 
 @Component({
   selector: 'app-vista-esquela-representante',
