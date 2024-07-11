@@ -80,6 +80,10 @@ const routes: Routes = [
     path: 'reporte-xfecha',
     loadChildren: () => import('./inspector/reporte-xfecha/reporte-xfecha.module').then( m => m.ReporteXfechaPageModule)
   },
+  {
+    path: 'curso-crud',
+    loadChildren: () => import('./inspector/curso-crud/curso-crud.module').then( m => m.CursoCRUDPageModule)
+  },
 
 
 ];
