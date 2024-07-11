@@ -98,7 +98,7 @@ export class AtrasosPage implements OnInit {
   }
   //Metodo  para registrar un atraso atravez del formulario de atrasos y la busqueda por cedula.
   registrarAtraso() {
-    if (this.formularioatrasos.valid) {
+   
       const descripcion = this.formularioatrasos.get('descripcion')!.value;
       this.authService.RegisterAtrasos({ descripcion }).subscribe({
         next: (response) => {
@@ -117,7 +117,7 @@ export class AtrasosPage implements OnInit {
           this.presentError(mensajeError);
         },
       });
-    }
+    
   }
   //Metodo de carga de Cursos para el formulario.(todos los cursos)
   loadCursos() {
@@ -180,7 +180,6 @@ export class AtrasosPage implements OnInit {
               'ID del estudiante guardado en localStorage:',
               localStorage.getItem('Estudiante')
             );
-
             const alert = await this.alertController.create({
               header: 'Registrar Atraso',
               message: `Registrar atraso de ${data.NombreEst} ${data.ApellidoEst} con cédula ${cedula}`,

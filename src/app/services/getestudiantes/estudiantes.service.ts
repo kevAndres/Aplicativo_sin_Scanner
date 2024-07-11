@@ -156,7 +156,7 @@ export class EstudiantesService {
     localStorage.removeItem('Estudiante'); // Remueve el idEstudiante del localStorage
     console.log('Todos los datos de usuario han sido borrados.');
   }
-
+ 
   getAtrasosByInspector(): Observable<any[]> {
     const decodedToken = this.decodeToken();
     if (decodedToken && decodedToken.idRol) {

@@ -1,0 +1,29 @@
+.container {
+    text-align: center;
+    background-color: #fff;
+    padding: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 20%;
+  }
+  
+  h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: #e74c3c;
+  }
+  
+  p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  ion-button {
+    --background: #3498db;
+    --background-activated: #2980b9;
+    --background-focused: #2980b9;
+    --background-hover: #2980b9;
+    --border-radius: 5px;
+  }
+  
