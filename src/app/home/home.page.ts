@@ -18,9 +18,7 @@ interface JwtPayload {
 export class HomePage implements OnInit {
   loginForm: FormGroup;
 
-  ngOnInit() {
 
-  }
   
   constructor(
     private router: Router,
@@ -54,6 +52,11 @@ export class HomePage implements OnInit {
   }
   async dismissLoading() {
     await this.loadingController.dismiss();
+  }
+  ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      this.redirectBasedOnRole();
+    }
   }
   onSubmit() {
     if (this.loginForm.valid) {

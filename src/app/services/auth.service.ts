@@ -35,18 +35,7 @@ export class AuthService {
     private alertController: AlertController
   ) {}
 
-  private getToken(): string {
-    return localStorage.getItem('token') || '';
-  }
-  private decodeToken(): JwtPayload | null {
-    const token = this.getToken();
-    try {
-      return token ? jwtDecode<JwtPayload>(token) : null;
-    } catch (error) {
-      console.error('Error decoding token:', error);
-      return null;
-    }
-  }
+
   async presentAlert(message: string) {
     const alert = await this.alertController.create({
       header: '¡UPS!',
@@ -56,20 +45,25 @@ export class AuthService {
 
     await alert.present();
   }
-  //metodo para login
-  loginr(email: string, password: string): Observable<any> {
-    // Define el cuerpo de la solicitud con las credenciales
-    const body = { email: email, password: password };
-    // Realiza la solicitud POST con el cuerpo de la solicitud
-    return this.http.post(`${this.apiUrlregister}/user/login`, body);
-  }
+
+
+
+
+
+  // Método para login
   login(email: string, password: string): Observable<boolean> {
-    const body = { email: email, password: password };
+    const body = { email, password };
     return this.http.post(`${this.apiUrlregister}/user/login`, body).pipe(
       map((response: any) => {
-        console.log(response.token);
         if (response && response.token) {
           localStorage.setItem('token', response.token);
+          console.log(localStorage.getItem('token'));
+          const decodedToken: any = jwtDecode(response.token);
+          if (decodedToken && decodedToken.idRol) {
+            localStorage.setItem('roles', decodedToken.user.rol); // Guarda el rol completo en localStorage
+            console.log(localStorage.getItem('roles'))
+            localStorage.setItem('rolePrefix', decodedToken.idRol.substring(0, 3)); // Guarda el prefijo del rol en localStorage
+          }
           return true;
         } else {
           return false;
@@ -78,15 +72,14 @@ export class AuthService {
       catchError((error) => {
         console.error('Error en el login', error);
         const mensajeError =
-          error.error && error.error.message
-            ? error.error.message
-            : 'Ocurrió un error al intentar iniciar sesión. Por favor, intenta de nuevo.';
+        error.error && error.error.message
+          ? error.error.message
+          : 'Ocurrió un error al intentar iniciar sesión. Por favor, intenta de nuevo.';
         this.presentAlert(mensajeError); // Aquí llamas a u función presentAlert con el mensaje de error
         return new Observable<boolean>((subscriber) => {
           subscriber.next(false);
           subscriber.complete();
         });
-        // Devuelve un Observable con valor false para indicar un inicio de sesión fallido
       })
     );
   }
@@ -96,24 +89,37 @@ export class AuthService {
     return !!localStorage.getItem('token');
   }
 
+  private getToken(): string {
+    return localStorage.getItem('token') || '';
+  }
+  
+  private decodeToken(): JwtPayload | null {
+    const token = this.getToken();
+    try {
+      return token ? jwtDecode<JwtPayload>(token) : null;
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return null;
+    }
+  }
   // Si el usuario no está logueado, redirigirlo a la página de inicio de sesión
   public AutentificatorLogin(): void {
     if (!this.isLoggedIn()) {
       this.router.navigate(['/home']);
     }
   }
-
-  getRoleIdPrefix(): string {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decodedToken: any = jwtDecode(token);
-      if (decodedToken && decodedToken.idRol) {
-        // Aquí asumimos que el rol está en un formato específico (por ejemplo, 'REP123')
-        return decodedToken.idRol.substring(0, 3); // Devuelve las primeras tres letras del rol
-      }
-    }
-    return ''; // Devuelve una cadena vacía si no se puede obtener el prefijo del rol
+  getRoles(): string[] {
+    const roles = localStorage.getItem('roles');
+    return roles ? [roles] : [];
   }
+  getRoleIdPrefix(): string {
+    const rolePrefix = localStorage.getItem('rolePrefix');
+    return rolePrefix ? rolePrefix : '';
+  }
+
+
+
+  
   //metodo para registrar representantes
   registerRepresentante(data: {
     nombre: string;
@@ -125,6 +131,11 @@ export class AuthService {
   }): Observable<any> {
     return this.http.post(`${this.apiUrlregister}/user/register`, data);
   }
+
+
+
+
+
   //metodo para registrar docentes
   registerDocente(data: {
     nombre: string;
@@ -244,10 +255,16 @@ export class AuthService {
     // Resetear los BehaviorSubjects o cualquier otra variable de estado
     this.representadosSubject.next([]);
     localStorage.removeItem('token'); // Remueve el token del localStorage
+    localStorage.removeItem('roles');
+    localStorage.removeItem('rolePrefix');
+    localStorage.removeItem('Estudiante');
+    localStorage.removeItem('MateriaDocente');
+    localStorage.removeItem('IdEstCurForEsquelas');
+    localStorage.removeItem('curso');
 
     // Aquí también podrías limpiar cualquier otro estado o almacenamiento local
     console.log('Todos los datos de usuario han sido borrados.');
   }
 
- 
+  
 }

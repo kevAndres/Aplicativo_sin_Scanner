@@ -79,6 +79,6 @@ export class PaguinainicialPage implements OnInit {
     localStorage.setItem('MateriaDocente', docente.IdAsignacion);
 
     console.log(docente.asignatura_idasignatura);
-    console.log(docente.curso_idCurso);
+    console.log(docente.IdAsignacion);
   }
 }

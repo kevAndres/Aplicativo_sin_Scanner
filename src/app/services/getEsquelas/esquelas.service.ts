@@ -14,5 +14,8 @@ export class EsquelasService {
   getEsquelasIdEstudiante(): Observable<any> {
     return this.http.get(`${APIURL}/esquela/estudiante/${localStorage.getItem('IdEstCurForEsquelas')}`);
   }
-
+  //Metodo para obtener todas las esquelas  del docente por curso impartido con su respectiva materia o asignatura
+  getEsquelasIdAsignacionDocenteMateria(): Observable<any> {
+    return this.http.get(`${APIURL}/esquela/docenteAsignacion/${localStorage.getItem('MateriaDocente')}`);
+  }
 }
