@@ -143,7 +143,12 @@ const routes: Routes = [
   //YO AGREGE ESTAS RUTAS NO LE ELIMINES LA HACER EL MERGE
   { path: 'curso-crud',
     loadChildren: () => import('./inspector/curso-crud/curso-crud.module').then(m => m.CursoCRUDPageModule)
-   }
+   },
+  {
+    path: 'asignatura-crud',
+    loadChildren: () => import('./inspector/asignatura-crud/asignatura-crud.module').then( m => m.AsignaturaCrudPageModule)
+  }
+
 
 
 ];

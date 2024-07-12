@@ -3,6 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { APIURL } from '../../../Shares/UrlApi'
 
+export interface Asignatura {
+  idasignatura: number;
+  nombre: string;
+  descripcion: string;
+}
+
 export interface Curso {
   idCurso: number;
   curso: string;
@@ -28,5 +34,17 @@ export class InpectorServiceService {
   }
   deleteCurso(idCurso: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/curso/cursos/${idCurso}`);
+  }
+
+  //METODOS DE LAS ASIGNATURAS
+  getAsignaturas(): Observable<Asignatura[]> {
+    return this.http.get<Asignatura[]>(`${this.apiUrl}/asignatura/all`);
+  }
+  
+  addAsignatura(asignatura: Asignatura): Observable<Asignatura> {
+    return this.http.post<Asignatura>(`${this.apiUrl}/asignatura/register`, asignatura);
+  }
+  deleteAsignatura(idAsignatrura: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/asignatura/delete/${idAsignatrura}`);
   }
 }
