@@ -23,7 +23,7 @@
       <ion-col>{{ curso.especialidad }}</ion-col>
       <ion-col>
         <ion-button color="warning" (click)="editCurso(curso)" >EDITAR</ion-button>
-        <ion-button color="danger" >ELIMINAR</ion-button>
+        <ion-button color="danger" (click)="deleteCurso(curso.idCurso)">ELIMINAR</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

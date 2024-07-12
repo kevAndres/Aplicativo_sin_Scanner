@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EstudiantesService } from '../../services/getestudiantes/estudiantes.service';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-configuracion',
   templateUrl: './configuracion.page.html',
@@ -7,7 +8,7 @@ import { EstudiantesService } from '../../services/getestudiantes/estudiantes.se
 })
 export class ConfiguracionPage implements OnInit {
   username: string = '';
-  constructor(    private EstudiantesService: EstudiantesService  ) { }
+  constructor(    private authService: AuthService, private EstudiantesService: EstudiantesService  ) { }
 
   ngOnInit() {
     this.UserName();
@@ -19,5 +20,9 @@ export class ConfiguracionPage implements OnInit {
     } catch (error) {
       console.error(error);
     }
+  }
+  logout() {
+    this.EstudiantesService.clearUserData();
+    this.authService.limpiarrepresentados();
   }
 }

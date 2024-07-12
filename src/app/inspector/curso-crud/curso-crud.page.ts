@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { InpectorServiceService, Curso } from '../services/inpector-service.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, LoadingController  } from '@ionic/angular';
+
 @Component({
   selector: 'app-curso-crud',
   templateUrl: './curso-crud.page.html',
@@ -8,16 +9,29 @@ import { AlertController } from '@ionic/angular';
 })
 export class CursoCRUDPage implements OnInit {
   cursos: Curso[] = [];
-  constructor(private inspectorService:InpectorServiceService, private alertCtrl: AlertController) { }
+  constructor(private inspectorService:InpectorServiceService, private alertCtrl: AlertController,private loadingController: LoadingController) { }
 
   ngOnInit() {
     this.loadCursos()
   }
-  loadCursos() {
-    this.inspectorService.getCursos().subscribe(cursos => {
-      this.cursos = cursos;
+  async loadCursos() {
+    const loading = await this.loadingController.create({
+      message: 'Cargando...',
     });
+    await loading.present();
+
+    this.inspectorService.getCursos().subscribe(
+      cursos => {
+        this.cursos = cursos;
+        loading.dismiss();
+      },
+      error => {
+        console.error('Error loading courses', error);
+        loading.dismiss();
+      }
+    );
   }
+
   async addCurso() {
     const alert = await this.alertCtrl.create({
       header: 'Add Curso',
@@ -63,5 +77,10 @@ export class CursoCRUDPage implements OnInit {
       ]
     });
     await alert.present();
+  }
+  deleteCurso(idCurso: number) {
+    this.inspectorService.deleteCurso(idCurso).subscribe(() => {
+      this.loadCursos();
+    });
   }
 }

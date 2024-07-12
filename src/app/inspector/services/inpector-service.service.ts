@@ -26,4 +26,7 @@ export class InpectorServiceService {
   updateCurso(curso: Curso): Observable<Curso> {
     return this.http.put<Curso>(`${this.apiUrl}/curso/cursos/${curso.idCurso}`, curso);
   }
+  deleteCurso(idCurso: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/curso/cursos/${idCurso}`);
+  }
 }

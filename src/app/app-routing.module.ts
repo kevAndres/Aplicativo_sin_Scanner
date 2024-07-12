@@ -139,7 +139,11 @@ const routes: Routes = [
     path: 'unauthorized',
     loadChildren: () => import('../Component/unauthorized/unauthorized/unauthorized.module').then(m => m.UnauthorizedPageModule)
   
-  }
+  },
+  //YO AGREGE ESTAS RUTAS NO LE ELIMINES LA HACER EL MERGE
+  { path: 'curso-crud',
+    loadChildren: () => import('./inspector/curso-crud/curso-crud.module').then(m => m.CursoCRUDPageModule)
+   }
 
 
 ];
