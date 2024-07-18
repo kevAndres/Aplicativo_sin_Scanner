@@ -139,7 +139,24 @@ const routes: Routes = [
     path: 'unauthorized',
     loadChildren: () => import('../Component/unauthorized/unauthorized/unauthorized.module').then(m => m.UnauthorizedPageModule)
   
+  },
+  //YO AGREGE ESTAS RUTAS NO LE ELIMINES LA HACER EL MERGE
+  { path: 'curso-crud',
+    loadChildren: () => import('./inspector/curso-crud/curso-crud.module').then(m => m.CursoCRUDPageModule)
+   },
+  {
+    path: 'asignatura-crud',
+    loadChildren: () => import('./inspector/asignatura-crud/asignatura-crud.module').then( m => m.AsignaturaCrudPageModule)
+  },  {
+    path: 'docente-crud',
+    loadChildren: () => import('./inspector/docente-crud/docente-crud.module').then( m => m.DocenteCrudPageModule)
+  },
+  {
+    path: 'representante-crud',
+    loadChildren: () => import('./inspector/representante-crud/representante-crud.module').then( m => m.RepresentanteCrudPageModule)
   }
+
+
 
 
 ];

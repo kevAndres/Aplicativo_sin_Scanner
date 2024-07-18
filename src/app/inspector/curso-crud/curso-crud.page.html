@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/configuracion"></ion-back-button>
+    </ion-buttons>
+    <ion-title>CRUD DE CURSOS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-grid>
+    <ion-row class="table-header">
+      <ion-col><H2>ID DEL CURSO</H2></ion-col>
+      <ion-col><H2>NIVEL</H2></ion-col>
+      <ion-col><H2>PARALELO</H2></ion-col>
+      <ion-col><H2>ESPECIALIDAD</H2></ion-col>
+      <ion-col><H2>ACCIONES</H2></ion-col>
+    </ion-row>
+    <ion-row *ngFor="let curso of cursos" class="table-row">
+      <ion-col>{{ curso.idCurso }}</ion-col>
+      <ion-col>{{ curso.curso }}</ion-col>
+      <ion-col>{{ curso.paralelo }}</ion-col>
+      <ion-col>{{ curso.especialidad }}</ion-col>
+      <ion-col class="action-buttons">
+        <ion-button color="warning" (click)="editCurso(curso)" >EDITAR</ion-button>
+        <ion-button color="danger" (click)="deleteCurso(curso.idCurso)">ELIMINAR</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-button (click)="addCurso()" class="add-button">AGREGAR CURSO</ion-button>
+</ion-content>
