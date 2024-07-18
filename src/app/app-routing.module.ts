@@ -142,18 +142,27 @@ const routes: Routes = [
   },
   //YO AGREGE ESTAS RUTAS NO LE ELIMINES LA HACER EL MERGE
   { path: 'curso-crud',
-    loadChildren: () => import('./inspector/curso-crud/curso-crud.module').then(m => m.CursoCRUDPageModule)
+    loadChildren: () => import('./inspector/curso-crud/curso-crud.module').then(m => m.CursoCRUDPageModule),
+    canActivate: [AuthGuard,RoleGuard],
+    data: { expectedRoles: ['inspector'] }
    },
   {
     path: 'asignatura-crud',
-    loadChildren: () => import('./inspector/asignatura-crud/asignatura-crud.module').then( m => m.AsignaturaCrudPageModule)
-  },  {
+    loadChildren: () => import('./inspector/asignatura-crud/asignatura-crud.module').then( m => m.AsignaturaCrudPageModule),
+    canActivate: [AuthGuard,RoleGuard],
+    data: { expectedRoles: ['inspector'] }
+  },
+  {
     path: 'docente-crud',
-    loadChildren: () => import('./inspector/docente-crud/docente-crud.module').then( m => m.DocenteCrudPageModule)
+    loadChildren: () => import('./inspector/docente-crud/docente-crud.module').then( m => m.DocenteCrudPageModule),
+    canActivate: [AuthGuard,RoleGuard],
+    data: { expectedRoles: ['inspector'] }
   },
   {
     path: 'representante-crud',
-    loadChildren: () => import('./inspector/representante-crud/representante-crud.module').then( m => m.RepresentanteCrudPageModule)
+    loadChildren: () => import('./inspector/representante-crud/representante-crud.module').then( m => m.RepresentanteCrudPageModule),
+    canActivate: [AuthGuard,RoleGuard],
+    data: { expectedRoles: ['inspector'] }
   }
 
 
