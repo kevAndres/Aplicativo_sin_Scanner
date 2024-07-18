@@ -15,6 +15,22 @@ export interface Curso {
   paralelo: string;
   especialidad: string;
 }
+export interface Docente {
+  iduser: number;
+  nombre: string;
+  apellido: string;
+  cedula: string;
+  email: string;
+  rol: string;
+}
+export interface Representante {
+  iduser: number;
+  nombre: string;
+  apellido: string;
+  cedula: string;
+  email: string;
+  rol: string;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -46,5 +62,32 @@ export class InpectorServiceService {
   }
   deleteAsignatura(idAsignatrura: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/asignatura/delete/${idAsignatrura}`);
+  }
+
+  //METODOS DEL DOCENTE EN CONFIGURACION
+  addDocente(docente: Docente): Observable<Docente> {
+    return this.http.post<Docente>(`${this.apiUrl}/user/register`, docente);
+  }
+  getDocentes(): Observable<Docente[]> {
+    return this.http.get<Docente[]>(`${this.apiUrl}/docente/user/all`);
+  }
+  updateDocente(docente: Docente): Observable<Docente> {
+    return this.http.put<Docente>(`${this.apiUrl}/docente/update/${docente.iduser}`, docente);
+  }
+  deleteDocente(iduser: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/docente/delete/${iduser}`);
+  }
+   //METODOS DEL REPRESENTANTE EN CONFIGURACION
+   addRepresenta(representante: Representante): Observable<Representante> {
+    return this.http.post<Representante>(`${this.apiUrl}/user/register`, representante);
+  }
+   getRepresentantes(): Observable<Representante[]> {
+    return this.http.get<Representante[]>(`${this.apiUrl}/representante/user/all`);
+  }
+  updateRepresentate(representante: Representante): Observable<Representante> {
+    return this.http.put<Representante>(`${this.apiUrl}/representante/update/${representante.iduser}`, representante);
+  }
+  deleteRepresentate(iduser: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/representante/delete/${iduser}`);
   }
 }

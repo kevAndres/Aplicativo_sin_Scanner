@@ -9,21 +9,21 @@
 
 <ion-content>
   <ion-grid>
-    <ion-row>
+    <ion-row class="table-header"> 
       <ion-col><H2>ID DE LA ASIGNARTURA</H2></ion-col>
       <ion-col><H2>NOMBRE</H2></ion-col>
       <ion-col><H2>DESCRIPCION</H2></ion-col>
       <ion-col><H2>ACCIONES</H2></ion-col>
     </ion-row>
-    <ion-row *ngFor="let asignatura of asignaturas">
+    <ion-row *ngFor="let asignatura of asignaturas" class="table-row">
       <ion-col>{{ asignatura.idasignatura }}</ion-col>
       <ion-col>{{ asignatura.nombre }}</ion-col>
       <ion-col>{{ asignatura.descripcion }}</ion-col>
-      <ion-col>
+      <ion-col class="action-buttons" >
         <ion-button color="warning"  >EDITAR</ion-button>
         <ion-button color="danger" color="danger" (click)="deleteAsignatura(asignatura.idasignatura)">ELIMINAR</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-button (click)="addAsignatura()">AGREGAR CURSO</ion-button>
+  <ion-button (click)="addAsignatura()"  class="add-button">AGREGAR ASIGNATURA</ion-button>
 </ion-content>

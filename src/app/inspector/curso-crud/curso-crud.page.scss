@@ -1,4 +1,21 @@
-ion-content {
-    --background: url('/assets/images/background.jpg') no-repeat center center / cover;
-    --background-color: transparent; /* Puedes ajustar el color de fondo si es necesario */
-  }
+.table-header {
+  background-color: #3086d6;
+  font-weight: bold;
+  padding: 5px;
+  text-align: center;
+}
+
+.table-row {
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.action-buttons ion-button {
+  margin-right: 5px; /* Espacio entre botones */
+}
+
+.add-button {
+  margin-top: 20px;
+  width: 100%;
+}

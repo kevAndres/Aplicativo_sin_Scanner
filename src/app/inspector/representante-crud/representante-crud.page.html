@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/configuracion"></ion-back-button>
+    </ion-buttons>
+    <ion-title>CRUD DE REPRESENTANTES</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-grid>
+    <!-- Encabezados de la tabla -->
+    <ion-row class="table-header">
+      <ion-col><h2>ID DEL DOCENTE</h2></ion-col>
+      <ion-col><h2>NOMBRE</h2></ion-col>
+      <ion-col><h2>APELLIDO</h2></ion-col>
+      <ion-col><h2>CÉDULA</h2></ion-col>
+      <ion-col><h2>EMAIL</h2></ion-col>
+      <ion-col><h2>ROL</h2></ion-col>
+      <ion-col><h2>ACCIONES</h2></ion-col>
+    </ion-row>
+    <!-- Filas de la tabla generadas dinámicamente -->
+    <ion-row *ngFor="let representante of representantes" class="table-row">
+      <ion-col>{{ representante.iduser }}</ion-col>
+      <ion-col>{{ representante.nombre }}</ion-col>
+      <ion-col>{{ representante.apellido }}</ion-col>
+      <ion-col>{{ representante.cedula }}</ion-col>
+      <ion-col>{{ representante.email }}</ion-col>
+      <ion-col>{{ representante.rol }}</ion-col>
+      <ion-col class="action-buttons">
+        <ion-button color="warning" (click)="editRepresentante(representante)">EDITAR</ion-button>
+        <ion-button color="danger" (click)="deleteRepresentate(representante.iduser)" >ELIMINAR</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- Botón fuera de la tabla -->
+  <ion-button class="add-button" (click)="addRepresentante()" >AGREGAR REPRESENTANTE</ion-button>
+</ion-content>
