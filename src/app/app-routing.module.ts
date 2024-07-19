@@ -163,7 +163,14 @@ const routes: Routes = [
     loadChildren: () => import('./inspector/representante-crud/representante-crud.module').then( m => m.RepresentanteCrudPageModule),
     canActivate: [AuthGuard,RoleGuard],
     data: { expectedRoles: ['inspector'] }
+  },
+  {
+    path: 'vista-atrasos-representante',
+    loadChildren: () => import('./Representantes/vista-atrasos-representante/vista-atrasos-representante.module').then( m => m.VistaAtrasosRepresentantePageModule),
+    canActivate: [AuthGuard,RoleGuard],
+    data: { expectedRoles: ['representante'] }
   }
+
 
 
 
