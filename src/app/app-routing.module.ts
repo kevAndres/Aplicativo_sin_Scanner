@@ -163,7 +163,11 @@ const routes: Routes = [
     loadChildren: () => import('./inspector/representante-crud/representante-crud.module').then( m => m.RepresentanteCrudPageModule),
     canActivate: [AuthGuard,RoleGuard],
     data: { expectedRoles: ['inspector'] }
+  },  {
+    path: 'estudiante-crud',
+    loadChildren: () => import('./inspector/estudiante-crud/estudiante-crud.module').then( m => m.EstudianteCrudPageModule)
   }
+
 
 
 
