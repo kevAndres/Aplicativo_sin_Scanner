@@ -31,6 +31,21 @@ export interface Representante {
   email: string;
   rol: string;
 }
+export interface Estudiante {
+  idEstudiantes: number;
+  NombreEst: string;
+  ApellidoEst: string;
+  cedula: string;
+  representantes_idrepresentantes: string;
+  curso_idCurso: number[];
+}
+ export interface Curso {
+  idCurso: number;
+  curso: string
+    paralelo: string;
+    especialidad: string;
+  
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -89,5 +104,15 @@ export class InpectorServiceService {
   }
   deleteRepresentate(iduser: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/representante/delete/${iduser}`);
+  }
+   //METODOS DEL ESTUDIANTE EN CONFIGURACION
+   getEstudiantes(): Observable<Estudiante[]> {
+    return this.http.get<Estudiante[]>(`${this.apiUrl}/estudiante/all`);
+  }
+  updateEstudiante(estudiante: Estudiante): Observable<Estudiante> {
+    return this.http.put<Estudiante>(`${this.apiUrl}/docente/update/${estudiante.idEstudiantes}`, estudiante);
+  }
+  deleteEstudiante(idEstudiantes: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/estudiante/delete/${idEstudiantes}`);
   }
 }
