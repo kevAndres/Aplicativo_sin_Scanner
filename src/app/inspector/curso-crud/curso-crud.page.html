@@ -27,5 +27,10 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-button (click)="addCurso()" class="add-button">AGREGAR CURSO</ion-button>
 </ion-content>
+<!--boton flotante-->
+<ion-fab  slot="fixed" vertical="bottom" horizontal="end" (click)="addCurso()" class="tooltip-container">
+  <ion-fab-button>  <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+    <span class="tooltip-text">Click para Registrar un nuevo Curso</span>
+</ion-fab>

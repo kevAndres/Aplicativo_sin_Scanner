@@ -23,6 +23,14 @@ export interface Docente {
   email: string;
   rol: string;
 }
+export interface inspector {
+  iduser: number;
+  nombre: string;
+  apellido: string;
+  cedula: string;
+  email: string;
+  rol: string;
+}
 export interface Representante {
   iduser: number;
   nombre: string;
@@ -115,4 +123,18 @@ export class InpectorServiceService {
   deleteEstudiante(idEstudiantes: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/estudiante/delete/${idEstudiantes}`);
   }
+    //METODOS DEL INSPECTOR EN CONFIGURACION/ADMIN
+    addInspector(docente: Docente): Observable<Docente> {
+      return this.http.post<Docente>(`${this.apiUrl}/user/register`, docente);
+    }
+    getInspector(): Observable<Docente[]> {
+      return this.http.get<Docente[]>(`${this.apiUrl}/user/all`);
+    }
+    updateInspector(docente: Docente): Observable<Docente> {
+      return this.http.put<Docente>(`${this.apiUrl}/docente/update/${docente.iduser}`, docente);
+    }
+    //revisar este metodo
+    deleteInspector(iduser: number): Observable<void> {
+      return this.http.delete<void>(`${this.apiUrl}/user/delete/${iduser}`);
+    }
 }

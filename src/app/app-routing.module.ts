@@ -165,10 +165,24 @@ const routes: Routes = [
     data: { expectedRoles: ['inspector'] }
   },
   {
+  path: 'estudiante-crud',
+  loadChildren: () => import('./inspector/estudiante-crud/estudiante-crud.module').then( m => m.EstudianteCrudPageModule),
+  canActivate: [AuthGuard,RoleGuard],
+  data: { expectedRoles: ['inspector'] }
+},
+  {
     path: 'vista-atrasos-representante',
     loadChildren: () => import('./Representantes/vista-atrasos-representante/vista-atrasos-representante.module').then( m => m.VistaAtrasosRepresentantePageModule),
     canActivate: [AuthGuard,RoleGuard],
     data: { expectedRoles: ['representante'] }
+  },
+  {
+    path: 'inicioadmin',
+    loadChildren: () => import('./admin/inicioadmin/inicioadmin.module').then( m => m.InicioadminPageModule)
+  },
+  {
+    path: 'inspector-crud',
+    loadChildren: () => import('./admin/inspector-crud/inspector-crud.module').then( m => m.InspectorCrudPageModule)
   }
 
 
