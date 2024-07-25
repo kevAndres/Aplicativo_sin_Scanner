@@ -23,6 +23,14 @@ export interface Docente {
   email: string;
   rol: string;
 }
+export interface Admin {
+  iduser: number;
+  nombre: string;
+  apellido: string;
+  cedula: string;
+  email: string;
+  rol: string;
+}
 export interface inspector {
   iduser: number;
   nombre: string;
@@ -124,17 +132,17 @@ export class InpectorServiceService {
     return this.http.delete<void>(`${this.apiUrl}/estudiante/delete/${idEstudiantes}`);
   }
     //METODOS DEL INSPECTOR EN CONFIGURACION/ADMIN
-    addInspector(docente: Docente): Observable<Docente> {
-      return this.http.post<Docente>(`${this.apiUrl}/user/register`, docente);
+    addInspector(admin: Admin): Observable<Admin> {
+      return this.http.post<Admin>(`${this.apiUrl}/user/register`, admin);
     }
-    getInspector(): Observable<Docente[]> {
-      return this.http.get<Docente[]>(`${this.apiUrl}/user/all`);
+    getInspector(): Observable<Admin[]> {
+      return this.http.get<Admin[]>(`${this.apiUrl}/inspector/user/all`);
     }
-    updateInspector(docente: Docente): Observable<Docente> {
-      return this.http.put<Docente>(`${this.apiUrl}/docente/update/${docente.iduser}`, docente);
+    updateInspector(admin: Admin): Observable<Admin> {
+      return this.http.put<Admin>(`${this.apiUrl}/inspector/update/${admin.iduser}`, admin);
     }
     //revisar este metodo
     deleteInspector(iduser: number): Observable<void> {
-      return this.http.delete<void>(`${this.apiUrl}/user/delete/${iduser}`);
+      return this.http.delete<void>(`${this.apiUrl}/inspector/delete/${iduser}`);
     }
 }
