@@ -100,6 +100,9 @@ export class InpectorServiceService {
   deleteDocente(iduser: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/docente/delete/${iduser}`);
   }
+  getAllDocentes(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/docente/maestro/all`);
+  }
    //METODOS DEL REPRESENTANTE EN CONFIGURACION
    addRepresenta(representante: Representante): Observable<Representante> {
     return this.http.post<Representante>(`${this.apiUrl}/user/register`, representante);

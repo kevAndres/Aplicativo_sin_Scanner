@@ -183,7 +183,23 @@ const routes: Routes = [
   {
     path: 'inspector-crud',
     loadChildren: () => import('./admin/inspector-crud/inspector-crud.module').then( m => m.InspectorCrudPageModule)
+  },  {
+    path: 'pdf-curso',
+    loadChildren: () => import('./inspector/pdf-curso/pdf-curso.module').then( m => m.PdfCursoPageModule)
+  },
+  {
+    path: 'pdf-estudiante',
+    loadChildren: () => import('./inspector/pdf-estudiante/pdf-estudiante.module').then( m => m.PdfEstudiantePageModule)
+  },
+  {
+    path: 'pdf-fecha',
+    loadChildren: () => import('./inspector/pdf-fecha/pdf-fecha.module').then( m => m.PdfFechaPageModule)
+  },
+  {
+    path: 'pdf-docente',
+    loadChildren: () => import('./inspector/pdf-docente/pdf-docente.module').then( m => m.PdfDocentePageModule)
   }
+
 
 
 

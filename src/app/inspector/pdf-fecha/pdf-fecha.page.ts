@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { APIURL } from '../../../Shares/UrlApi';
 import { LoadingController } from '@ionic/angular';
 @Component({
-  selector: 'app-reporte-xfecha',
-  templateUrl: './reporte-xfecha.page.html',
-  styleUrls: ['./reporte-xfecha.page.scss'],
+  selector: 'app-pdf-fecha',
+  templateUrl: './pdf-fecha.page.html',
+  styleUrls: ['./pdf-fecha.page.scss'],
 })
-export class ReporteXfechaPage implements OnInit {
+export class PdfFechaPage implements OnInit {
   url: string = APIURL
   selectedDate : string="";
   formattedDate: string="";
@@ -14,7 +14,6 @@ export class ReporteXfechaPage implements OnInit {
 
   ngOnInit() {
     this.selectedDate = new Date().toISOString();
-  
   }
 
   async downloadFile(): Promise<void> {
@@ -32,7 +31,7 @@ export class ReporteXfechaPage implements OnInit {
     console.log(this.formattedDate);
 
     if (this.formattedDate) {
-      const downloadUrl = `${this.url}/atraso/reporte/fecha/${this.formattedDate}`;
+      const downloadUrl = `${this.url}/esquela/reportepdf/fecha/${this.formattedDate}`;
 
       // Use fetch to download the file and wait for the response
       try {
@@ -42,7 +41,7 @@ export class ReporteXfechaPage implements OnInit {
           const url = window.URL.createObjectURL(blob);
           const a = document.createElement('a');
           a.href = url;
-          a.download = `report_${this.formattedDate}.xlsx`; // Assuming the file is a PDF, change accordingly
+          a.download = `report_${this.formattedDate}.pdf`; // Assuming the file is a PDF, change accordingly
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
