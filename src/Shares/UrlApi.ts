@@ -1,1 +1,1 @@
-export const APIURL = 'http://localhost:3000';
+export const APIURL = 'https://apinodejs-9pjh.onrender.com';

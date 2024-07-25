@@ -1,88 +1,39 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';  
-import jsQR from 'jsqr';
-import { EstudiantesService } from '../../../app/services/getestudiantes/estudiantes.service';
+import { Component, OnDestroy } from '@angular/core';
+import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { AlertController } from '@ionic/angular';
+import { EstudiantesService } from '../../../app/services/getestudiantes/estudiantes.service';
 
 @Component({
   selector: 'app-scanner-qr',
   templateUrl: './scanner-qr.component.html',
   styleUrls: ['./scanner-qr.component.scss'],
 })
-export class ScannerQRComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('videoElement') videoElement!: ElementRef<HTMLVideoElement>;
-  @ViewChild('canvasElement') canvasElement!: ElementRef<HTMLCanvasElement>;
+export class ScannerQRComponent implements OnDestroy {
   qrCodeData: string | null = null;
-  videoStream: MediaStream | null = null;  // Variable para almacenar el stream de video
-  estudiantes_idEstudiantes: string | null = null;     // Variable para almacenar el id del estudiante
+  estudiantes_idEstudiantes: string | null = null;
 
   constructor(
-    private router: Router,
     private estudiantesService: EstudiantesService,
     private alertController: AlertController
   ) {}
 
-  ngAfterViewInit() {
-    this.startVideo();
-  }
-
-  async startVideo() {
+  async startScan() {
     try {
-      const constraints = {
-        video: {
-          facingMode: 'environment',
-        },
-      };
-
-      this.videoStream = await navigator.mediaDevices.getUserMedia(constraints);
-      const video = this.videoElement.nativeElement;
-
-      if (video) {
-        video.srcObject = this.videoStream;
-        video.setAttribute('playsinline', ''); 
-
-        await new Promise<void>((resolve, reject) => {
-          video.onloadedmetadata = () => {
-            resolve(video.play());
-          };
-          video.onerror = (error) => {
-            reject(error);
-          };
-        });
-
-        this.scanQRCode();
+      const status = await BarcodeScanner.checkPermission({ force: true });
+      if (status.granted) {
+        await BarcodeScanner.hideBackground(); // make background of WebView transparent
+        const result = await BarcodeScanner.startScan(); // start scanning and wait for a result
+        if (result.hasContent) {
+          this.qrCodeData = result.content; // result content
+          this.getEstudianteData(result.content); // Obtener datos del estudiante
+          await BarcodeScanner.showBackground();
+        }
+      } else {
+        console.error('No permissions granted!');
       }
     } catch (error) {
-      console.error('Error accessing the camera: ', error);
-      alert('Error accessing the camera: ' + error);
+      console.error('Error:', error);
     }
-  }
-
-  scanQRCode() {
-    const canvas = this.canvasElement.nativeElement;
-    const context = canvas.getContext('2d');
-    const video = this.videoElement.nativeElement;
-
-    const tick = () => {
-      if (video.readyState === video.HAVE_ENOUGH_DATA && context) {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-        const code = jsQR(imageData.data, imageData.width, imageData.height);
-
-        if (code) {
-          this.qrCodeData = code.data;
-          this.getEstudianteData(code.data);  // Obtener datos del estudiante
-        }
-      }
-
-      if (!this.qrCodeData) {
-        requestAnimationFrame(tick);
-      }
-    };
-
-    tick();
   }
 
   async getEstudianteData(codigo: string) {
@@ -122,14 +73,12 @@ export class ScannerQRComponent implements AfterViewInit, OnDestroy {
       next: (response) => {
         console.log('Atraso registrado exitosamente', response);
         this.presentConfirmacion('Atraso registrado exitosamente');
-        this.qrCodeData = null;  // Reiniciar el valor del código QR para permitir un nuevo escaneo
-        this.scanQRCode();  // Reiniciar el escaneo después del registro
+        this.qrCodeData = null; // Reiniciar el valor del código QR para permitir un nuevo escaneo
       },
       error: (error) => {
         console.error('Error al registrar el atraso', error);
         this.presentError('Error al registrar el atraso');
-        this.qrCodeData = null;  // Reiniciar el valor del código QR para permitir un nuevo escaneo
-        this.scanQRCode();  // Reiniciar el escaneo después del registro
+        this.qrCodeData = null; // Reiniciar el valor del código QR para permitir un nuevo escaneo
       }
     });
   }
@@ -155,13 +104,6 @@ export class ScannerQRComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.stopVideo();  // Detener el video cuando el componente se destruya
-  }
-
-  stopVideo() {
-    if (this.videoStream) {
-      this.videoStream.getTracks().forEach(track => track.stop());
-      this.videoStream = null;
-    }
+    BarcodeScanner.showBackground();
   }
 }
