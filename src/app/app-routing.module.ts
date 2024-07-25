@@ -144,31 +144,31 @@ const routes: Routes = [
   { path: 'curso-crud',
     loadChildren: () => import('./inspector/curso-crud/curso-crud.module').then(m => m.CursoCRUDPageModule),
     canActivate: [AuthGuard,RoleGuard],
-    data: { expectedRoles: ['inspector'] }
+    data: { expectedRoles: ['inspector','administrador'] }
    },
   {
     path: 'asignatura-crud',
     loadChildren: () => import('./inspector/asignatura-crud/asignatura-crud.module').then( m => m.AsignaturaCrudPageModule),
     canActivate: [AuthGuard,RoleGuard],
-    data: { expectedRoles: ['inspector'] }
+    data: { expectedRoles: ['inspector','administrador'] }
   },
   {
     path: 'docente-crud',
     loadChildren: () => import('./inspector/docente-crud/docente-crud.module').then( m => m.DocenteCrudPageModule),
     canActivate: [AuthGuard,RoleGuard],
-    data: { expectedRoles: ['inspector'] }
+    data: { expectedRoles: ['inspector','administrador'] }
   },
   {
     path: 'representante-crud',
     loadChildren: () => import('./inspector/representante-crud/representante-crud.module').then( m => m.RepresentanteCrudPageModule),
     canActivate: [AuthGuard,RoleGuard],
-    data: { expectedRoles: ['inspector'] }
+    data: { expectedRoles: ['inspector','administrador'] }
   },
   {
   path: 'estudiante-crud',
   loadChildren: () => import('./inspector/estudiante-crud/estudiante-crud.module').then( m => m.EstudianteCrudPageModule),
   canActivate: [AuthGuard,RoleGuard],
-  data: { expectedRoles: ['inspector'] }
+  data: { expectedRoles: ['inspector','administrador'] }
 },
   {
     path: 'vista-atrasos-representante',
@@ -178,12 +178,15 @@ const routes: Routes = [
   },
   {
     path: 'inicioadmin',
-    loadChildren: () => import('./admin/inicioadmin/inicioadmin.module').then( m => m.InicioadminPageModule)
+    loadChildren: () => import('./admin/inicioadmin/inicioadmin.module').then( m => m.InicioadminPageModule),
+    canActivate: [AuthGuard,RoleGuard],
+    data: { expectedRoles: ['administrador'] }
   },
   {
     path: 'inspector-crud',
     loadChildren: () => import('./admin/inspector-crud/inspector-crud.module').then( m => m.InspectorCrudPageModule)
-  },  {
+  },
+  {
     path: 'pdf-curso',
     loadChildren: () => import('./inspector/pdf-curso/pdf-curso.module').then( m => m.PdfCursoPageModule)
   },
