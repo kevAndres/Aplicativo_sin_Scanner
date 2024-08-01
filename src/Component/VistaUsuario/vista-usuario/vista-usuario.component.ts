@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../../app/services/getProfile/profile.service'; // Ajusta la ruta según la ubicación de tu servicio
-import { ModalController } from '@ionic/angular'; // Importar ModalController
-import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { ModalController, AlertController } from '@ionic/angular'; // Importar ModalController y AlertController
+import { Filesystem, Directory } from '@capacitor/filesystem';
 
 @Component({
   selector: 'app-vista-usuario',
@@ -14,7 +14,8 @@ export class VistaUsuarioComponent implements OnInit {
 
   constructor(
     private ProfileService: ProfileService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private alertController: AlertController // Inyectar AlertController
   ) {}
 
   ngOnInit() {
@@ -50,26 +51,36 @@ export class VistaUsuarioComponent implements OnInit {
           const reader = new FileReader();
           reader.onloadend = async () => {
             const base64data = reader.result?.toString().split(',')[1];
-            if (base64data) {
+            if (base64data && this.userInfo) {
+              const userName = `${this.userInfo.NombreEst}_${this.userInfo.ApellidoEst}`.replace(/ /g, '_');
               await Filesystem.writeFile({
-                path: 'QR_de_Estudiante.jpg',
+                path: `${userName}_QR.png`,
                 data: base64data,
-                directory: Directory.Documents,
-                encoding: Encoding.UTF8,
+                directory: Directory.Documents
               });
               console.log('Archivo guardado correctamente');
-              alert('Archivo guardado correctamente en la carpeta de documentos');
+              this.presentAlert('Archivo guardado correctamente en la carpeta de documentos');
             }
           };
           reader.readAsDataURL(blob);
         } catch (error) {
           console.error('Error al guardar el archivo', error);
-          alert('Error al guardar el archivo: ' + error);
+          this.presentAlert('Error al guardar el archivo: ' + error);
         }
       },
       error => {
         console.error('Error al Generar el QR', error);
+        this.presentAlert('Error al Generar el QR: ' + error);
       }
     );
+  }
+
+  async presentAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Información',
+      message: message,
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 }

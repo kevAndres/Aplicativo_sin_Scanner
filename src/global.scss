@@ -115,4 +115,35 @@
     visibility: visible;
     opacity: 1;
   }
-  
+  //barcode-scanning
+body.barcode-scannig-active{
+  visibility: hidden;
+  --background: transparent;
+  --ion-backgound-color: transparent;
+}
+.barcode-scanning-modal{
+  visibility: visible;
+}
+@media (prefers-color-scheme:dark){
+  .barcode-scannig-active{
+    visibility: hidden;
+    --background: transparent;
+    --ion-backgound-color: transparent;
+  }
+}
+
+ion-content {
+  --background: transparent;
+}
+
+.square {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 16px;
+  width: 200px;
+  height: 200px;
+  border: 6px solid white;
+  box-shadow: 0 0 0 4000px rgba(0, 0, 0, 0.3);
+}
