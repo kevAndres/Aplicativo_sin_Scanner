@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/configuracion"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Restablecer contraseña del usuario </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">ID de Usuario</ion-label>
+      <ion-input formControlName="userId" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Nueva Contraseña</ion-label>
+      <ion-input formControlName="newPassword" type="password"></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" type="submit" [disabled]="!changePasswordForm.valid">Cambiar Contraseña</ion-button>
+  </form>
+</ion-content>

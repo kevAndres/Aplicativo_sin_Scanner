@@ -201,7 +201,11 @@ const routes: Routes = [
   {
     path: 'pdf-docente',
     loadChildren: () => import('./inspector/pdf-docente/pdf-docente.module').then( m => m.PdfDocentePageModule)
+  },  {
+    path: 'restablecer',
+    loadChildren: () => import('./inspector/restablecer/restablecer.module').then( m => m.RestablecerPageModule)
   }
+
 
 
 
