@@ -8,7 +8,7 @@
  </base-config>
  <domain-config cleartextTrafficPermitted="true">
   <domain includeSubdomains="true">apinodejs</domain>
-
+	   <domain includeSubdomains="true">https://b25t7cs6-3000.use2.devtunnels.ms</domain>
 	   <domain includeSubdomains="true">https://apinodejs-9pjh.onrender.com</domain>
 	</domain-config>
 	</network-security-config>
