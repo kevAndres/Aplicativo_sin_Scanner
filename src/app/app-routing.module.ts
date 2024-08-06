@@ -204,6 +204,10 @@ const routes: Routes = [
   },  {
     path: 'restablecer',
     loadChildren: () => import('./inspector/restablecer/restablecer.module').then( m => m.RestablecerPageModule)
+  },
+  {
+    path: 'reportes',
+    loadChildren: () => import('./Docente/reportes/reportes.module').then( m => m.ReportesPageModule)
   }
 
 

@@ -30,7 +30,9 @@ export class RestablecerPage  {
               duration: 2000,
               color: 'success'
             });
+
             await toast.present();
+            this.changePasswordForm.reset();
           },
           async (error) => {
             const toast = await this.toastController.create({
