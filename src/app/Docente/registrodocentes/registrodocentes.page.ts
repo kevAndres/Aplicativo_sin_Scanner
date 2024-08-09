@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { AlertController,LoadingController } from '@ionic/angular';
+import { HeaderServiceService } from 'src/Shares/Services/header-service.service';
 
 @Component({
   selector: 'app-registrodocentes',
@@ -11,6 +12,7 @@ import { AlertController,LoadingController } from '@ionic/angular';
 })
 export class RegistrodocentesPage {
   formularioDocente: FormGroup;
+  public TitleHeader: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -18,7 +20,9 @@ export class RegistrodocentesPage {
     private authService: AuthService,
     private alertController: AlertController,
     private loadingController: LoadingController,
-  ) {
+    private HeaderServiceService: HeaderServiceService
+  ) {    
+    this.TitleHeader = this.HeaderServiceService.appTitle;
     // Aquí inicializamos el FormGroup utilizando el FormBuilder
     this.formularioDocente = this.formBuilder.group({
       // Definimos un FormControl para cada campo con sus validaciones

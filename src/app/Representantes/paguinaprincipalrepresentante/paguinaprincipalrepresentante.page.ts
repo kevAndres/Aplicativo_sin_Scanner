@@ -6,6 +6,8 @@ import { AuthService } from '../../services/auth.service';
 import { MenuController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { VistaUsuarioComponent } from 'src/Component/VistaUsuario/vista-usuario/vista-usuario.component';
+import { HeaderServiceService } from 'src/Shares/Services/header-service.service';
+
 
 @Component({
   selector: 'app-paguinaprincipalrepresentante',
@@ -18,6 +20,8 @@ import { VistaUsuarioComponent } from 'src/Component/VistaUsuario/vista-usuario/
 export class PaguinaprincipalrepresentantePage implements OnInit, OnDestroy {
   representados: any[] = [];
   username: string = '';
+  public TitleHeader: string;
+
   private subscriptions: Subscription = new Subscription();
 
   constructor(
@@ -25,8 +29,12 @@ export class PaguinaprincipalrepresentantePage implements OnInit, OnDestroy {
     private authService: AuthService,
     private menu: MenuController,
     private EstudiantesService: EstudiantesService,
-    private modalController: ModalController
-  ) {}
+    private modalController: ModalController,
+    private HeaderServiceService: HeaderServiceService
+
+  ) {
+    this.TitleHeader = this.HeaderServiceService.appTitle;
+  }
 
   ngOnInit() {
    // this.ChargeEstudents();

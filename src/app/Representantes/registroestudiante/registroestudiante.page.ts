@@ -6,6 +6,7 @@ import { AlertController, IonRouterOutlet } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { EstudiantesService } from '../../services/getestudiantes/estudiantes.service';
 import { MenuController } from '@ionic/angular';
+import { HeaderServiceService } from 'src/Shares/Services/header-service.service';
 
 @Component({
   selector: 'app-registroestudiante',
@@ -20,6 +21,7 @@ export class RegistroestudiantePage implements OnInit {
   representados: any[] = [];
   username: string = '';
   cursos: any[] = [];
+  public TitleHeader: string;
 
   private subscriptions: Subscription = new Subscription();
 
@@ -30,8 +32,11 @@ export class RegistroestudiantePage implements OnInit {
     private alertController: AlertController,
     private EstudiantesService: EstudiantesService,
     private routerOutlet: IonRouterOutlet,
-    private menu: MenuController
+    private menu: MenuController,
+    private HeaderServiceService: HeaderServiceService
+
   ) {
+    this.TitleHeader = this.HeaderServiceService.appTitle;
     this.formularioEstudiante = this.formBuilder.group({
       NombreEst: ['', [Validators.required, Validators.minLength(3)]],
       ApellidoEst: ['', [Validators.required, Validators.minLength(3)]],

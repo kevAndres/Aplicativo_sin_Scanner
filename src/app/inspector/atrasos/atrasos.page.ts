@@ -1,14 +1,10 @@
 import { Component, OnDestroy, Injectable, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  AbstractControl,
-} from '@angular/forms';
+import {  FormBuilder,  FormGroup,  Validators,  AbstractControl,} from '@angular/forms';
 import { EstudiantesService } from '../../services/getestudiantes/estudiantes.service';
 import { MenuController, AlertController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { HeaderServiceService } from 'src/Shares/Services/header-service.service';
 
 interface Docente {
   asignatura_idasignatura: string;
@@ -26,6 +22,8 @@ export class AtrasosPage implements OnInit {
   username: string = '';
   cursos: any[] = [];
   Estudiantes: any[] = [];
+  public TitleHeader: string;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,13 +31,22 @@ export class AtrasosPage implements OnInit {
     private menu: MenuController,
     private alertController: AlertController,
     private authService: AuthService,
-    private router: Router
+    private router: Router,    private HeaderServiceService: HeaderServiceService
+
   ) {
+    this.TitleHeader = this.HeaderServiceService.appTitle;
     this.formularioatrasos = this.formBuilder.group({
       descripcion: [''],
       curso_idCurso: ['', [Validators.required]],
       EstudianteCurso: ['', [Validators.required]],
-      cedula: [ '', [ this.numberValidator(),  Validators.minLength(10),  Validators.maxLength(10)] ],
+      cedula: [
+        '',
+        [
+          this.numberValidator(),
+          Validators.minLength(10),
+          Validators.maxLength(10),
+        ],
+      ],
     });
   }
 
@@ -91,26 +98,24 @@ export class AtrasosPage implements OnInit {
   }
   //Metodo  para registrar un atraso atravez del formulario de atrasos y la busqueda por cedula.
   registrarAtraso() {
-   
-      const descripcion = this.formularioatrasos.get('descripcion')!.value;
-      this.authService.RegisterAtrasos({ descripcion }).subscribe({
-        next: (response) => {
-          // Manejo de la respuesta exitosa
-          console.log(response);
-          this.presentConfirmacion('Atraso registrado exitosamente');
-          this.formularioatrasos.reset(); // Limpiar el formulario
-        },
-        error: (error) => {
-          console.error('Error en el registro', error);
-          let mensajeError =
-            'Ocurrió un error al intentar registrar. Por favor, intenta de nuevo.';
-          if (error.error && error.error.message) {
-            mensajeError = error.error.message;
-          }
-          this.presentError(mensajeError);
-        },
-      });
-    
+    const descripcion = this.formularioatrasos.get('descripcion')!.value;
+    this.authService.RegisterAtrasos({ descripcion }).subscribe({
+      next: (response) => {
+        // Manejo de la respuesta exitosa
+        console.log(response);
+        this.presentConfirmacion('Atraso registrado exitosamente');
+        this.formularioatrasos.reset(); // Limpiar el formulario
+      },
+      error: (error) => {
+        console.error('Error en el registro', error);
+        let mensajeError =
+          'Ocurrió un error al intentar registrar. Por favor, intenta de nuevo.';
+        if (error.error && error.error.message) {
+          mensajeError = error.error.message;
+        }
+        this.presentError(mensajeError);
+      },
+    });
   }
   //Metodo de carga de Cursos para el formulario.(todos los cursos)
   loadCursos() {

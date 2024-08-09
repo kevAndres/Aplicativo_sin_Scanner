@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { EstudiantesService } from '../../services/getestudiantes/estudiantes.service';
 import { AlertController, IonRouterOutlet } from '@ionic/angular';
 import { MenuController } from '@ionic/angular';
+import { HeaderServiceService } from 'src/Shares/Services/header-service.service';
 
 @Component({
   selector: 'app-registroasignatura',
@@ -18,6 +19,7 @@ export class RegistroasignaturaPage implements OnInit {
   selectedAsignatura?: string;
   username: string = '';
   formularioAsignatura: FormGroup;
+  public TitleHeader: string;
 
   constructor(
     private EstudiantesService: EstudiantesService,
@@ -25,9 +27,12 @@ export class RegistroasignaturaPage implements OnInit {
     private alertController: AlertController,
     private AuthService : AuthService,
     private router: Router,
-    private menu: MenuController
+    private menu: MenuController,
+    private HeaderServiceService: HeaderServiceService
+
 
   ) {
+    this.TitleHeader = this.HeaderServiceService.appTitle;
     this.formularioAsignatura = this.formBuilder.group({
       asignatura_idasignatura: ['', [Validators.required]],
       curso_idCurso: ['', [Validators.required]]

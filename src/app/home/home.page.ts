@@ -5,6 +5,8 @@ import { AuthService } from '../services/auth.service';
 import { jwtDecode } from 'jwt-decode';
 import { AlertController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
+import { HeaderServiceService } from 'src/Shares/Services/header-service.service';
+
 interface JwtPayload {
   nombre?: string;
   idRol?: string;
@@ -17,6 +19,7 @@ interface JwtPayload {
 })
 export class HomePage implements OnInit {
   loginForm: FormGroup;
+  public TitleHeader: string;
 
 
   
@@ -25,8 +28,10 @@ export class HomePage implements OnInit {
     private loadingController: LoadingController,
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private HeaderServiceService: HeaderServiceService
   ) {
+    this.TitleHeader = this.HeaderServiceService.appTitle;
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],

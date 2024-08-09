@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { AlertController,LoadingController } from '@ionic/angular';
+import { HeaderServiceService } from 'src/Shares/Services/header-service.service';
 
 @Component({
   selector: 'app-registrorepresentantes',
@@ -11,6 +12,7 @@ import { AlertController,LoadingController } from '@ionic/angular';
 })
 export class RegistrorepresentantesPage implements OnInit {
   formularioRepresentantes: FormGroup;
+  public TitleHeader: string;
 
   constructor(
     private router: Router,
@@ -18,8 +20,10 @@ export class RegistrorepresentantesPage implements OnInit {
     private authService: AuthService,
     private alertController: AlertController,
     private loadingController: LoadingController,
+    private HeaderServiceService: HeaderServiceService
 
   ) {
+    this.TitleHeader = this.HeaderServiceService.appTitle;
     this.formularioRepresentantes = this.formBuilder.group({
       nombre: ['', [Validators.required, Validators.minLength(3)]],
       apellido: ['', [Validators.required, Validators.minLength(3)]],

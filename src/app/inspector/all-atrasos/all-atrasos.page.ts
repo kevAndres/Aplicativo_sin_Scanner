@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { HeaderServiceService } from 'src/Shares/Services/header-service.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -13,10 +13,15 @@ import { EstudiantesService } from '../../services/getestudiantes/estudiantes.se
 export class AllAtrasosPage implements OnInit {
   username: string = '';
   atrasosByInspector: any[] = [];
+  public TitleHeader: string;
+
   constructor(
     private authService: AuthService,
-    private EstudiantesService: EstudiantesService
-  ) {}
+    private EstudiantesService: EstudiantesService,
+    private HeaderServiceService: HeaderServiceService
+  ) {
+    this.TitleHeader = this.HeaderServiceService.appTitle;
+  }
 
   ngOnInit() {}
   logout() {

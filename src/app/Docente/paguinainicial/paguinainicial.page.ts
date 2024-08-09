@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { EstudiantesService } from '../../services/getestudiantes/estudiantes.service';
 import { MenuController } from '@ionic/angular';
+import { HeaderServiceService } from 'src/Shares/Services/header-service.service';
 
 interface Docente {
   asignatura_idasignatura: string;
@@ -25,14 +26,20 @@ export class PaguinainicialPage implements OnInit {
   username: string = '';
   asignaturasdocente: any[] = [];
   AigCurso: Docente[] = [];
+  public TitleHeader: string;
 
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
     private EstudiantesService: EstudiantesService,
-    private menu: MenuController
-  ) {}
+    private menu: MenuController,
+    private HeaderServiceService: HeaderServiceService
+
+  ) {
+    this.TitleHeader = this.HeaderServiceService.appTitle;
+
+  }
 
   ngOnInit() {}
   logout() {

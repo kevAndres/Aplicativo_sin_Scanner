@@ -1,0 +1,61 @@
+<resources>
+    <!-- primary -->
+    <color name="colorPrimary">#3880ff</color>
+    <color name="colorPrimaryDark">#3171e0</color>
+    <color name="colorPrimaryContrast">#ffffff</color>
+    <color name="colorPrimaryShade">#3171e0</color>
+    <color name="colorPrimaryTint">#4c8dff</color>
+
+    <!-- secondary -->
+    <color name="colorSecondary">#3dc2ff</color>
+    <color name="colorSecondaryDark">#36abe0</color>
+    <color name="colorSecondaryContrast">#ffffff</color>
+    <color name="colorSecondaryShade">#36abe0</color>
+    <color name="colorSecondaryTint">#50c8ff</color>
+
+    <!-- tertiary -->
+    <color name="colorTertiary">#5260ff</color>
+    <color name="colorTertiaryDark">#4854e0</color>
+    <color name="colorTertiaryContrast">#ffffff</color>
+    <color name="colorTertiaryShade">#4854e0</color>
+    <color name="colorTertiaryTint">#6370ff</color>
+
+    <!-- success -->
+    <color name="colorSuccess">#2dd36f</color>
+    <color name="colorSuccessDark">#28ba62</color>
+    <color name="colorSuccessContrast">#ffffff</color>
+    <color name="colorSuccessShade">#28ba62</color>
+    <color name="colorSuccessTint">#42d77d</color>
+
+    <!-- warning -->
+    <color name="colorWarning">#ffc409</color>
+    <color name="colorWarningDark">#e0ac08</color>
+    <color name="colorWarningContrast">#000000</color>
+    <color name="colorWarningShade">#e0ac08</color>
+    <color name="colorWarningTint">#ffca22</color>
+
+    <!-- danger -->
+    <color name="colorDanger">#eb445a</color>
+    <color name="colorDangerDark">#cf3c4f</color>
+    <color name="colorDangerContrast">#ffffff</color>
+    <color name="colorDangerShade">#cf3c4f</color>
+    <color name="colorDangerTint">#ed576b</color>
+
+    <!-- dark -->
+    <color name="colorDark">#222428</color>
+    <color name="colorDarkContrast">#ffffff</color>
+    <color name="colorDarkShade">#1e2023</color>
+    <color name="colorDarkTint">#383a3e</color>
+
+    <!-- medium -->
+    <color name="colorMedium">#92949c</color>
+    <color name="colorMediumContrast">#ffffff</color>
+    <color name="colorMediumShade">#808289</color>
+    <color name="colorMediumTint">#9d9fa6</color>
+
+    <!-- light -->
+    <color name="colorLight">#f4f5f8</color>
+    <color name="colorLightContrast">#000000</color>
+    <color name="colorLightShade">#d7d8da</color>
+    <color name="colorLightTint">#f5f6f9</color>
+</resources>

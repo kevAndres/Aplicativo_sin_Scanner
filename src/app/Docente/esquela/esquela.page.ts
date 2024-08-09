@@ -6,6 +6,7 @@ import { MotivoEsquelas } from '../../../Shares/MotivoEsquelas';
 import { AuthService } from '../../services/auth.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { HeaderServiceService } from 'src/Shares/Services/header-service.service';
 
 interface Estudiante {
   idEstudiantes: string;
@@ -20,7 +21,7 @@ export class EsquelaPage implements OnInit {
   fileInput!: ElementRef<HTMLInputElement>;
   uploadMessage: string = '';
   base64Image: string | ArrayBuffer | null = null;
-
+  public TitleHeader: string;
   formularioEsquela: FormGroup;
   username: string = '';
   Estudiantes: any[] = [];
@@ -37,8 +38,11 @@ export class EsquelaPage implements OnInit {
     private alertController: AlertController,
     private router: Router,
     private authService: AuthService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private HeaderServiceService: HeaderServiceService
+
   ) {
+    this.TitleHeader = this.HeaderServiceService.appTitle;
     this.formularioEsquela = this.formBuilder.group({
       EstudianteCurso: ['', [Validators.required]],
       Motivo: ['', [Validators.required]],
