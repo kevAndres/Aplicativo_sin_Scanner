@@ -36,7 +36,7 @@ export class ReportesPage implements OnInit {
     this.EstudiantesService.getAsignaturasDocente().subscribe(
       (data) => {
         this.asignaturasdocente = data;
-        console.log(data)
+      
       },
       (Error) => {
         console.error(
