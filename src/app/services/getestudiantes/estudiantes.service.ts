@@ -87,6 +87,9 @@ export class EstudiantesService {
       );
     }
   }
+
+  
+
   getAsignaturas(): Observable<any> {
     return this.http.get(`${this.apiUrl}/asignatura/all`);
   }

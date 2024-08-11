@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { ScannerQRComponent } from 'src/Component/ScannerQR/scanner-qr/scanner-qr.component';
 import { AuthGuard } from './services/SesionGuard/AuthGuard';
 import { RoleGuard } from './services/SesionGuard/RoleGuard';
+
 import { UnauthorizedComponent } from '../Component/unauthorized/unauthorized/unauthorized.component';
 
 const routes: Routes = [
@@ -201,15 +202,18 @@ const routes: Routes = [
   {
     path: 'pdf-docente',
     loadChildren: () => import('./inspector/pdf-docente/pdf-docente.module').then( m => m.PdfDocentePageModule)
-  },  {
+  },
+  {
     path: 'restablecer',
     loadChildren: () => import('./inspector/restablecer/restablecer.module').then( m => m.RestablecerPageModule)
   },
   {
     path: 'reportes',
     loadChildren: () => import('./Docente/reportes/reportes.module').then( m => m.ReportesPageModule)
-  }
+  },
+  
 
+  
 
 
 
