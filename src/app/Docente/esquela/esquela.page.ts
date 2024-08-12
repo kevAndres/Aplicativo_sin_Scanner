@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { HeaderServiceService } from 'src/Shares/Services/header-service.service';
+import { LoadingController } from '@ionic/angular';
 
 interface Estudiante {
   idEstudiantes: string;
@@ -37,6 +38,7 @@ export class EsquelaPage implements OnInit {
     private formBuilder: FormBuilder,
     private alertController: AlertController,
     private router: Router,
+    private loadingController: LoadingController,
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
     private HeaderServiceService: HeaderServiceService
@@ -50,6 +52,16 @@ export class EsquelaPage implements OnInit {
       cita: [''] // Agrega el control de la fecha aquí
 
     });
+  }
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Registrando...',
+      translucent: true,
+    });
+    await loading.present();
+  }
+  async dismissLoading() {
+    await this.loadingController.dismiss();
   }
   async presentError(message: string) {
     const alert = await this.alertController.create({
@@ -114,6 +126,8 @@ export class EsquelaPage implements OnInit {
 
   RegisterEsquela() {
     if (this.formularioEsquela.valid) {
+      this.presentLoading();
+
       let citaFormateada = 'El docente emitente, no solicita cita';
   
       if (this.showCalendar) {
@@ -146,12 +160,19 @@ export class EsquelaPage implements OnInit {
         },
         error: (error) => {
           console.error('Error al registrar la Esquela', error);
+          this.dismissLoading();
           this.presentError(error);
         },
+        complete: () => {
+          this.dismissLoading(); // Descarta el loading cuando la solicitud completa (ya sea éxito o error)
+        }
       });
-    } else {
-      console.error('Datos no válidos');
     }
+     else {
+      console.error('Datos no válidos');
+      this.dismissLoading();
+    }
+
   }
   
 
