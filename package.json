@@ -26,7 +26,6 @@
     "@capacitor/android": "^5.7.1",
     "@capacitor/app": "5.0.7",
     "@capacitor/core": "^5.7.8",
-    "@capacitor/filesystem": "^6.0.1",
     "@capacitor/haptics": "5.0.7",
     "@capacitor/keyboard": "5.0.8",
     "@capacitor/status-bar": "5.0.7",
