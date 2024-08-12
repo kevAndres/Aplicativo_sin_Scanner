@@ -8,7 +8,6 @@ import { IonicModule } from '@ionic/angular';
 import { AtrasosPageRoutingModule } from './atrasos-routing.module';
 
 import { AtrasosPage } from './atrasos.page';
-import { ScannerQRComponent } from 'src/Component/ScannerQR/scanner-qr/scanner-qr.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,6 +17,6 @@ import { ScannerQRComponent } from 'src/Component/ScannerQR/scanner-qr/scanner-q
     ReactiveFormsModule,
     
   ],
-  declarations: [AtrasosPage,ScannerQRComponent]
+  declarations: [AtrasosPage]
 })
 export class AtrasosPageModule {}

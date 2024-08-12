@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { ScannerQRComponent } from 'src/Component/ScannerQR/scanner-qr/scanner-qr.component';
 import { AuthGuard } from './services/SesionGuard/AuthGuard';
 import { RoleGuard } from './services/SesionGuard/RoleGuard';
 
@@ -76,13 +75,7 @@ const routes: Routes = [
     data: { expectedRoles: ['inspector'] }
 
   },
-  {
-    path: 'scanner-qr',
-    component: ScannerQRComponent,
-    canActivate: [AuthGuard,RoleGuard],
-    data: { expectedRoles: ['inspector'] }
 
-  },
   {
     path: 'tabs',
     loadChildren: () => import('./inspector/tabs/tabs.module').then(m => m.TabsPageModule),
