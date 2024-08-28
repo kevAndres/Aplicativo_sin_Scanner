@@ -11,7 +11,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size-md="4" offset-md="4" size-lg="6" offset-lg="3">
-        <ion-card *ngFor="let esquela of esquelas" button (click)="toggleDetails(esquela)" >
+        <ion-card *ngFor="let esquela of esquelas" button (click)="toggleDetails(esquela)"  >
           <ion-card-header >
             <ion-toolbar color="primary" class="rounded-border">
               <ion-label class="center-label"><img  src="assets/img/escudo(1).png" alt="Escudo" style="width: 30px; height: auto"/> UNIDAD EDUCATIVA ANTONIO ÁVILA MALDONADO  </ion-label>
@@ -20,9 +20,11 @@
           <ion-card-content>
             <ion-row>
               <ion-col>
+                  <ion-card-subtitle><h3><strong> Estado: </strong> {{esquela.estado_esquela}} <br></h3></ion-card-subtitle>
                   <ion-card-title><strong> Motivo: </strong>{{ esquela.Motivo }}<br></ion-card-title>
                   <!-- Poner el nombre del docente o asignatura-->
                   <div  *ngIf="esquela.detailsVisible">
+                    
                     <ion-card-title><strong> Se Notifica al Representante :</strong> {{username}} <br></ion-card-title>
                     <ion-card-title> <strong > Del estudiante: </strong>{{Nombreestudiante}} {{Apellidosestudiante}} , por el motivo expuesto.<br>  </ion-card-title>
                     <ion-card-title><strong>Dado que : </strong>{{ esquela.Descripcion }}<br></ion-card-title>

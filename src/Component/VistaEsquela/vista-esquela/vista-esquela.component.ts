@@ -22,6 +22,7 @@ interface Esquela {
 })
 export class VistaEsquelaComponent implements OnInit {
   esquelas: any[] = [];
+  esquelas_update:any[] = [];
   username: string = '';
   Nombreestudiante: string ;
   Apellidosestudiante: string ;
@@ -61,6 +62,7 @@ export class VistaEsquelaComponent implements OnInit {
       }
     );
   }
+
 getRepresentante(){
   try {
     this.username = this.EstudiantesService.getUsername();
@@ -69,11 +71,48 @@ getRepresentante(){
   }
 }
 
-toggleDetails(selectedEsquela: Esquela) {
-  this.esquelas.forEach(esquela => {
-    esquela.detailsVisible = (esquela === selectedEsquela) ? !esquela.detailsVisible : false;
+toggleDetails(esquela: any) {
+  localStorage.setItem('IdEsquela', esquela.idEsquela);
+  console.log(localStorage.getItem('IdEsquela'));
+
+  // Ocultar los detalles de todas las esquelas, excepto de la que se hace clic
+  this.esquelas.forEach(e => {
+    if (e.idEsquela !== esquela.idEsquela) {
+      e.detailsVisible = false;
+    }
   });
+
+  // Verificar si los detalles están actualmente visibles para la esquela seleccionada
+  if (!esquela.detailsVisible) {
+    // Llamar al servicio para actualizar el estado de la esquela
+    this.esquelasService.getUpdateEsquelasIdEstudiante().subscribe(
+      (updatedEsquela: any) => {
+        if (updatedEsquela && updatedEsquela.idEsquela === esquela.idEsquela) {
+          const index = this.esquelas.findIndex(e => e.idEsquela === esquela.idEsquela);
+          if (index !== -1) {
+            // Solo actualizar el campo estado_esquela
+            this.esquelas[index].estado_esquela = updatedEsquela.estado_esquela;
+            // Mostrar los detalles de esta esquela
+            this.esquelas[index].detailsVisible = true;
+          }
+        } else {
+          console.error('La esquela no coincide o no existe:', updatedEsquela);
+        }
+      },
+      (error) => {
+        console.error('Error al actualizar el estado de la esquela:', error);
+      }
+    );
+  } else {
+    // Si ya están visibles, ocultarlos al hacer clic en la misma esquela
+    esquela.detailsVisible = false;
+  }
 }
+
+  
+  
+
+
 async openFullscreenImage(image: string) {
   const modal = await this.modalController.create({
     component: FullscreenImageModalComponent,
@@ -82,4 +121,5 @@ async openFullscreenImage(image: string) {
   
   return await modal.present();
 }
+
 }

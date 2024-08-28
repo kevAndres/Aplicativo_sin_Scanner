@@ -155,8 +155,10 @@ export class EsquelaPage implements OnInit {
       this.authService.registerEsquela_API(formData).subscribe({
         next: (response) => {
           console.log('Esquela registrada con éxito', response);
+          this.dismissLoading();
           this.presentConfirmacion(response);
           this.router.navigate(['/paguinainicial']); // Navegar de regreso
+
         },
         error: (error) => {
           console.error('Error al registrar la Esquela', error);
